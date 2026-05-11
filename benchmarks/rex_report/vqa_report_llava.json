@@ -1,0 +1,782 @@
+[
+  {
+    "id": "train_10330_a_2.nii_z0252_pos__report",
+    "image": "images/train_10330_a_2.nii_z0252_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_10420_a_1.nii_z0127_pos__report",
+    "image": "images/train_10420_a_1.nii_z0127_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "valid_988_a_2.nii_z0333_pos__report",
+    "image": "images/valid_988_a_2.nii_z0333_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_3694_a_1.nii_z0086_pos__report",
+    "image": "images/train_3694_a_1.nii_z0086_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_6488_b_2.nii_z0103_pos__report",
+    "image": "images/train_6488_b_2.nii_z0103_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_10519_a_1.nii_z0132_pos__report",
+    "image": "images/train_10519_a_1.nii_z0132_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_6498_a_2.nii_z0283_pos__report",
+    "image": "images/train_6498_a_2.nii_z0283_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_12608_a_2.nii_z0281_pos__report",
+    "image": "images/train_12608_a_2.nii_z0281_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_5350_a_1.nii_z0186_pos__report",
+    "image": "images/train_5350_a_1.nii_z0186_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_11054_a_2.nii_z0176_pos__report",
+    "image": "images/train_11054_a_2.nii_z0176_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_5758_a_1.nii_z0097_pos__report",
+    "image": "images/train_5758_a_1.nii_z0097_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_7800_a_2.nii_z0077_pos__report",
+    "image": "images/train_7800_a_2.nii_z0077_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_10991_a_1.nii_z0103_pos__report",
+    "image": "images/train_10991_a_1.nii_z0103_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_5557_a_2.nii_z0271_pos__report",
+    "image": "images/train_5557_a_2.nii_z0271_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_13624_a_2.nii_z0318_pos__report",
+    "image": "images/train_13624_a_2.nii_z0318_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_10006_b_2.nii_z0163_pos__report",
+    "image": "images/train_10006_b_2.nii_z0163_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_5922_a_2.nii_z0081_pos__report",
+    "image": "images/train_5922_a_2.nii_z0081_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_392_a_1.nii_z0121_pos__report",
+    "image": "images/train_392_a_1.nii_z0121_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_2377_a_2.nii_z0225_pos__report",
+    "image": "images/train_2377_a_2.nii_z0225_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_1857_a_1.nii_z0054_pos__report",
+    "image": "images/train_1857_a_1.nii_z0054_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_207_a_1.nii_z0115_pos__report",
+    "image": "images/train_207_a_1.nii_z0115_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_1401_b_1.nii_z0129_pos__report",
+    "image": "images/train_1401_b_1.nii_z0129_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_79_a_2.nii_z0178_pos__report",
+    "image": "images/train_79_a_2.nii_z0178_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_5912_a_1.nii_z0209_pos__report",
+    "image": "images/train_5912_a_1.nii_z0209_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_2039_a_2.nii_z0386_pos__report",
+    "image": "images/train_2039_a_2.nii_z0386_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_10938_a_1.nii_z0127_pos__report",
+    "image": "images/train_10938_a_1.nii_z0127_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_1124_b_1.nii_z0161_pos__report",
+    "image": "images/train_1124_b_1.nii_z0161_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_13339_a_1.nii_z0164_pos__report",
+    "image": "images/train_13339_a_1.nii_z0164_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_6418_a_2.nii_z0442_pos__report",
+    "image": "images/train_6418_a_2.nii_z0442_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_1960_a_2.nii_z0131_pos__report",
+    "image": "images/train_1960_a_2.nii_z0131_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_11427_a_2.nii_z0310_pos__report",
+    "image": "images/train_11427_a_2.nii_z0310_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_13875_b_1.nii_z0221_pos__report",
+    "image": "images/train_13875_b_1.nii_z0221_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_7072_a_1.nii_z0053_pos__report",
+    "image": "images/train_7072_a_1.nii_z0053_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_6244_a_2.nii_z0194_pos__report",
+    "image": "images/train_6244_a_2.nii_z0194_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_5551_a_2.nii_z0207_pos__report",
+    "image": "images/train_5551_a_2.nii_z0207_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_7817_a_2.nii_z0252_pos__report",
+    "image": "images/train_7817_a_2.nii_z0252_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_6666_a_1.nii_z0108_pos__report",
+    "image": "images/train_6666_a_1.nii_z0108_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_8061_b_2.nii_z0129_pos__report",
+    "image": "images/train_8061_b_2.nii_z0129_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_6254_a_2.nii_z0265_pos__report",
+    "image": "images/train_6254_a_2.nii_z0265_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_5959_a_1.nii_z0167_pos__report",
+    "image": "images/train_5959_a_1.nii_z0167_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_13426_a_2.nii_z0205_pos__report",
+    "image": "images/train_13426_a_2.nii_z0205_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_10094_c_1.nii_z0150_pos__report",
+    "image": "images/train_10094_c_1.nii_z0150_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_8085_a_1.nii_z0213_pos__report",
+    "image": "images/train_8085_a_1.nii_z0213_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_10083_c_2.nii_z0172_pos__report",
+    "image": "images/train_10083_c_2.nii_z0172_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_11377_a_1.nii_z0176_pos__report",
+    "image": "images/train_11377_a_1.nii_z0176_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_11532_a_2.nii_z0181_pos__report",
+    "image": "images/train_11532_a_2.nii_z0181_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "valid_615_a_2.nii_z0295_pos__report",
+    "image": "images/valid_615_a_2.nii_z0295_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_5632_a_1.nii_z0177_pos__report",
+    "image": "images/train_5632_a_1.nii_z0177_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_6618_b_2.nii_z0308_pos__report",
+    "image": "images/train_6618_b_2.nii_z0308_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_13631_a_1.nii_z0165_pos__report",
+    "image": "images/train_13631_a_1.nii_z0165_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_12460_a_1.nii_z0152_pos__report",
+    "image": "images/train_12460_a_1.nii_z0152_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_5719_c_2.nii_z0208_pos__report",
+    "image": "images/train_5719_c_2.nii_z0208_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_2371_a_1.nii_z0161_pos__report",
+    "image": "images/train_2371_a_1.nii_z0161_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_93_c_2.nii_z0048_pos__report",
+    "image": "images/train_93_c_2.nii_z0048_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_13662_a_2.nii_z0217_pos__report",
+    "image": "images/train_13662_a_2.nii_z0217_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_6610_a_2.nii_z0084_pos__report",
+    "image": "images/train_6610_a_2.nii_z0084_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_10017_a_2.nii_z0198_pos__report",
+    "image": "images/train_10017_a_2.nii_z0198_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_5632_a_1.nii_z0176_pos__report",
+    "image": "images/train_5632_a_1.nii_z0176_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_11736_a_1.nii_z0119_pos__report",
+    "image": "images/train_11736_a_1.nii_z0119_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  },
+  {
+    "id": "train_12228_a_2.nii_z0229_pos__report",
+    "image": "images/train_12228_a_2.nii_z0229_pos_grid.png",
+    "dataset": "ReXGroundingCT-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-report",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nWrite a concise diagnostic chest CT report for this single image. Describe visible findings only."
+      }
+    ]
+  }
+]

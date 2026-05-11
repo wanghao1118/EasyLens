@@ -1,0 +1,100 @@
+{
+  "package_created": "2026-05-10",
+  "dataset_policy": "Benchmark text metadata, sample_id lists, and subtle-lesion EasyLens shape banks are included. Image files, masks, checkpoints, logs, generated outputs, and raw medical data are intentionally excluded.",
+  "bank_policy": "Shape banks are built from an independent bank/train split supplied through BANK_SOURCE_ROOT. Held-out benchmark directories are used for evaluation only.",
+  "benchmarks": [
+    {
+      "name": "rex_count",
+      "dataset": "ReXGroundingCT",
+      "task": "count",
+      "n": 147,
+      "sample_id_file": "benchmark_sample_ids/rex_count/sample_ids.csv"
+    },
+    {
+      "name": "rex_single_select",
+      "dataset": "ReXGroundingCT",
+      "task": "single_select",
+      "n": 90,
+      "sample_id_file": "benchmark_sample_ids/rex_single_select/sample_ids.csv"
+    },
+    {
+      "name": "rex_report",
+      "dataset": "ReXGroundingCT",
+      "task": "report",
+      "n": 60,
+      "sample_id_file": "benchmark_sample_ids/rex_report/sample_ids.csv"
+    },
+    {
+      "name": "lidc_count",
+      "dataset": "LIDC-IDRI",
+      "task": "count",
+      "n": 132,
+      "sample_id_file": "benchmark_sample_ids/lidc_count/sample_ids.csv"
+    },
+    {
+      "name": "lidc_single_select",
+      "dataset": "LIDC-IDRI",
+      "task": "single_select",
+      "n": 133,
+      "sample_id_file": "benchmark_sample_ids/lidc_single_select/sample_ids.csv"
+    },
+    {
+      "name": "lidc_report",
+      "dataset": "LIDC-IDRI",
+      "task": "report",
+      "n": 60,
+      "sample_id_file": "benchmark_sample_ids/lidc_report/sample_ids.csv"
+    },
+    {
+      "name": "abdomen_count",
+      "dataset": "AbdomenAtlas",
+      "task": "count",
+      "n": 86,
+      "sample_id_file": "benchmark_sample_ids/abdomen_count/sample_ids.csv"
+    },
+    {
+      "name": "abdomen_single_select",
+      "dataset": "AbdomenAtlas",
+      "task": "single_select",
+      "n": 104,
+      "sample_id_file": "benchmark_sample_ids/abdomen_single_select/sample_ids.csv"
+    },
+    {
+      "name": "abdomen_report",
+      "dataset": "AbdomenAtlas",
+      "task": "report",
+      "n": 50,
+      "sample_id_file": "benchmark_sample_ids/abdomen_report/sample_ids.csv"
+    }
+  ],
+  "models": {
+    "primary": "MedGemma1.5 + EasyLens",
+    "backbone_adaptation": [
+      "LLaVA-Med",
+      "RadFM",
+      "Lingshu",
+      "Hulu-Med-7B",
+      "MedGemma",
+      "MedGemma1.5"
+    ]
+  },
+  "entrypoints": {
+    "subtle_vqa": "code/runners/evaluate_medgemma_microbench_shape_selector_visibility.py",
+    "official_runner": "code/runners/easylens_official_runner.py",
+    "backbone_adaptation": "code/runners/evaluate_rex_easylens_model_native.py",
+    "report_token_probability": "code/runners/analyze_rex_report_lesion_token_probs.py",
+    "normal_rrg_shape_pipeline": "code/runners/evaluate_rex_easylens_model_native.py",
+    "bank_builder": "code/method/build_rex_shape_selector_bank.py"
+  },
+  "feature_banks": {
+    "subtle_lesion_medgemma15": "banks/subtle_lesion_medgemma15/MANIFEST.json"
+  },
+  "launch_scripts": {
+    "build_subtle_lesion_banks_medgemma15": "code/launch_scripts/build_subtle_lesion_banks_medgemma15.sh",
+    "subtle_lesion_medgemma15": "code/launch_scripts/run_subtle_lesion_medgemma15.sh",
+    "normal_rrg_medgemma15": "code/launch_scripts/run_normal_rrg_medgemma15.sh"
+  },
+  "official_config": {
+    "path": "configs/official_runner_config.json"
+  }
+}

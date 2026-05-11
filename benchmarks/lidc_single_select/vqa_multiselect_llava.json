@@ -1,0 +1,1731 @@
+[
+  {
+    "id": "LIDC-IDRI-0012_330748005462583462174378573565_pos__multiselect",
+    "image": "images/LIDC-IDRI-0012_330748005462583462174378573565_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,1); B. (1,3); C. (3,1); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0039_136087956894571957115585588546_pos__multiselect",
+    "image": "images/LIDC-IDRI-0039_136087956894571957115585588546_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,1); B. (3,1); C. (2,3); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0136_319828605774642018405361170164_pos__multiselect",
+    "image": "images/LIDC-IDRI-0136_319828605774642018405361170164_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,1); B. (1,1); C. (3,3); D. (3,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0164_263546609939463542082894242371_pos__multiselect",
+    "image": "images/LIDC-IDRI-0164_263546609939463542082894242371_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (3,2); C. (2,3); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0332_193598023003223176024985346413_pos__multiselect",
+    "image": "images/LIDC-IDRI-0332_193598023003223176024985346413_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (2,1); C. (1,1); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0379_226611603059601574525021218829_pos__multiselect",
+    "image": "images/LIDC-IDRI-0379_226611603059601574525021218829_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (1,3); C. (3,1); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0397_990759136036085440139830998574_pos__multiselect",
+    "image": "images/LIDC-IDRI-0397_990759136036085440139830998574_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (3,1); C. (2,1); D. (3,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0535_267415716985234386983131349843_pos__multiselect",
+    "image": "images/LIDC-IDRI-0535_267415716985234386983131349843_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,1); B. (1,3); C. (2,1); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0636_689564860194853758634432175595_pos__multiselect",
+    "image": "images/LIDC-IDRI-0636_689564860194853758634432175595_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (3,2); C. (2,3); D. (1,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0703_480462224988447130667030908957_pos__multiselect",
+    "image": "images/LIDC-IDRI-0703_480462224988447130667030908957_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (3,2); C. (1,1); D. (1,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0916_228453258432368999019818063549_pos__multiselect",
+    "image": "images/LIDC-IDRI-0916_228453258432368999019818063549_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,1); B. (2,3); C. (1,3); D. (3,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0039_906392027441700270450806547507_pos__multiselect",
+    "image": "images/LIDC-IDRI-0039_906392027441700270450806547507_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,1); B. (2,2); C. (3,3); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0535_339757682672075158403803263259_pos__multiselect",
+    "image": "images/LIDC-IDRI-0535_339757682672075158403803263259_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,1); B. (3,3); C. (3,2); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0644_516182716133561958266899718526_pos__multiselect",
+    "image": "images/LIDC-IDRI-0644_516182716133561958266899718526_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,1); B. (1,3); C. (3,2); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0649_144763622630755944016384150081_pos__multiselect",
+    "image": "images/LIDC-IDRI-0649_144763622630755944016384150081_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (2,1); C. (3,3); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0649_562664563387126169516147273449_pos__multiselect",
+    "image": "images/LIDC-IDRI-0649_562664563387126169516147273449_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,1); B. (2,2); C. (1,2); D. (1,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0686_327382695300912526190821677262_pos__multiselect",
+    "image": "images/LIDC-IDRI-0686_327382695300912526190821677262_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (2,1); C. (3,3); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0800_270447909752212350326116660098_pos__multiselect",
+    "image": "images/LIDC-IDRI-0800_270447909752212350326116660098_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,1); C. (1,3); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0846_941340211227506569348119709420_pos__multiselect",
+    "image": "images/LIDC-IDRI-0846_941340211227506569348119709420_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (3,2); C. (1,1); D. (3,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0855_314153767816504278068925297669_pos__multiselect",
+    "image": "images/LIDC-IDRI-0855_314153767816504278068925297669_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (1,1); C. (3,1); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0742_212699070944810222471146718376_pos__multiselect",
+    "image": "images/LIDC-IDRI-0742_212699070944810222471146718376_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,1); C. (1,2); D. (3,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0524_252614614226048586695901358721_pos__multiselect",
+    "image": "images/LIDC-IDRI-0524_252614614226048586695901358721_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (2,1); C. (3,2); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-1011_114708826760527467846363491983_pos__multiselect",
+    "image": "images/LIDC-IDRI-1011_114708826760527467846363491983_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (2,1); C. (2,3); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0041_219029389803524282943224661032_pos__multiselect",
+    "image": "images/LIDC-IDRI-0041_219029389803524282943224661032_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,1); B. (1,3); C. (2,2); D. (3,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0005_230648696103592332528776948445_pos__multiselect",
+    "image": "images/LIDC-IDRI-0005_230648696103592332528776948445_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (2,1); C. (1,1); D. (3,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0854_209520638149691602144928793614_pos__multiselect",
+    "image": "images/LIDC-IDRI-0854_209520638149691602144928793614_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,1); B. (1,1); C. (3,2); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0188_275956901213083368280647753900_pos__multiselect",
+    "image": "images/LIDC-IDRI-0188_275956901213083368280647753900_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (3,2); C. (2,3); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0529_298709987673217919455641761718_pos__multiselect",
+    "image": "images/LIDC-IDRI-0529_298709987673217919455641761718_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (3,2); C. (3,3); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0188_289284938189958734564073346893_pos__multiselect",
+    "image": "images/LIDC-IDRI-0188_289284938189958734564073346893_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,3); B. (1,3); C. (1,2); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0459_241055755963724445799097817953_pos__multiselect",
+    "image": "images/LIDC-IDRI-0459_241055755963724445799097817953_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (1,3); C. (3,1); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0759_209268379928382731060353869441_pos__multiselect",
+    "image": "images/LIDC-IDRI-0759_209268379928382731060353869441_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (1,3); C. (1,1); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0649_382081289577297023413787602062_pos__multiselect",
+    "image": "images/LIDC-IDRI-0649_382081289577297023413787602062_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (3,1); C. (1,3); D. (1,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0751_817936461150256653095199568827_pos__multiselect",
+    "image": "images/LIDC-IDRI-0751_817936461150256653095199568827_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (1,1); C. (2,3); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0335_637585633995274571949760755288_pos__multiselect",
+    "image": "images/LIDC-IDRI-0335_637585633995274571949760755288_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (2,1); C. (1,3); D. (3,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0328_888162856982510810059544903781_pos__multiselect",
+    "image": "images/LIDC-IDRI-0328_888162856982510810059544903781_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (2,1); C. (2,3); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0091_257764038222725778075582001481_pos__multiselect",
+    "image": "images/LIDC-IDRI-0091_257764038222725778075582001481_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,1); B. (2,2); C. (2,3); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0386_232218745958505576087355499875_pos__multiselect",
+    "image": "images/LIDC-IDRI-0386_232218745958505576087355499875_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,1); B. (3,3); C. (3,2); D. (1,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0583_332166356860628592421086687037_pos__multiselect",
+    "image": "images/LIDC-IDRI-0583_332166356860628592421086687037_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,3); B. (2,2); C. (1,3); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0583_168144327458438405263095324640_pos__multiselect",
+    "image": "images/LIDC-IDRI-0583_168144327458438405263095324640_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,1); B. (2,2); C. (2,3); D. (3,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0583_833195707291080312289660786244_pos__multiselect",
+    "image": "images/LIDC-IDRI-0583_833195707291080312289660786244_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,1); B. (3,2); C. (1,2); D. (1,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0879_134215072295432775814673095583_pos__multiselect",
+    "image": "images/LIDC-IDRI-0879_134215072295432775814673095583_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,3); C. (1,1); D. (3,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0250_246154768031686473585366653576_pos__multiselect",
+    "image": "images/LIDC-IDRI-0250_246154768031686473585366653576_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (3,2); C. (3,3); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0358_104885196010618114316213289857_pos__multiselect",
+    "image": "images/LIDC-IDRI-0358_104885196010618114316213289857_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,2); C. (2,3); D. (3,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0858_329871379878835470044941376458_pos__multiselect",
+    "image": "images/LIDC-IDRI-0858_329871379878835470044941376458_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (1,2); C. (3,2); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0583_124131137914661947894101878726_pos__multiselect",
+    "image": "images/LIDC-IDRI-0583_124131137914661947894101878726_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (2,2); C. (1,3); D. (1,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0748_395611122255370348796586798103_pos__multiselect",
+    "image": "images/LIDC-IDRI-0748_395611122255370348796586798103_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,1); B. (2,1); C. (2,3); D. (3,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0687_181756672145132590194660273021_pos__multiselect",
+    "image": "images/LIDC-IDRI-0687_181756672145132590194660273021_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (3,1); C. (1,3); D. (3,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0473_115957226686445528679200022759_pos__multiselect",
+    "image": "images/LIDC-IDRI-0473_115957226686445528679200022759_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,1); B. (2,2); C. (3,2); D. (3,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0454_257001347676770352231489322815_pos__multiselect",
+    "image": "images/LIDC-IDRI-0454_257001347676770352231489322815_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,1); C. (2,3); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0859_117483677178367765270424779921_pos__multiselect",
+    "image": "images/LIDC-IDRI-0859_117483677178367765270424779921_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,1); B. (3,2); C. (2,2); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0448_262001331832468697296917333024_pos__multiselect",
+    "image": "images/LIDC-IDRI-0448_262001331832468697296917333024_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,2); C. (3,3); D. (3,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0571_262812408445577074227932378893_pos__multiselect",
+    "image": "images/LIDC-IDRI-0571_262812408445577074227932378893_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (3,1); C. (3,3); D. (1,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0078_554419374464496085900992574496_pos__multiselect",
+    "image": "images/LIDC-IDRI-0078_554419374464496085900992574496_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (1,2); C. (1,1); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0145_263984381523420698429690110001_pos__multiselect",
+    "image": "images/LIDC-IDRI-0145_263984381523420698429690110001_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,1); B. (1,2); C. (3,2); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0124_103780256530885555345004042879_pos__multiselect",
+    "image": "images/LIDC-IDRI-0124_103780256530885555345004042879_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (3,3); C. (2,3); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0559_293274571820023360320105830846_pos__multiselect",
+    "image": "images/LIDC-IDRI-0559_293274571820023360320105830846_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (2,1); C. (3,3); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0338_700975716815818248802774939964_pos__multiselect",
+    "image": "images/LIDC-IDRI-0338_700975716815818248802774939964_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (1,2); C. (1,1); D. (3,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0851_279012840890870557427149589312_pos__multiselect",
+    "image": "images/LIDC-IDRI-0851_279012840890870557427149589312_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,3); B. (1,2); C. (3,2); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0928_803208114450186974848737113224_pos__multiselect",
+    "image": "images/LIDC-IDRI-0928_803208114450186974848737113224_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (1,1); C. (1,3); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0649_300080823349913442977199990016_pos__multiselect",
+    "image": "images/LIDC-IDRI-0649_300080823349913442977199990016_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,3); B. (3,3); C. (3,2); D. (3,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0118_190931582134923111397438575919_pos__multiselect",
+    "image": "images/LIDC-IDRI-0118_190931582134923111397438575919_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (2,3); C. (1,1); D. (3,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0583_200958690667184211009009953213_pos__multiselect",
+    "image": "images/LIDC-IDRI-0583_200958690667184211009009953213_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,1); C. (1,2); D. (1,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0792_234442702702384659140150155741_pos__multiselect",
+    "image": "images/LIDC-IDRI-0792_234442702702384659140150155741_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (3,3); C. (2,1); D. (3,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0916_357945982393096224026296487094_pos__multiselect",
+    "image": "images/LIDC-IDRI-0916_357945982393096224026296487094_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (2,1); C. (2,2); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0454_237702729095691758351716761841_pos__multiselect",
+    "image": "images/LIDC-IDRI-0454_237702729095691758351716761841_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (2,1); C. (3,2); D. (1,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0838_155844734883120774146736367442_pos__multiselect",
+    "image": "images/LIDC-IDRI-0838_155844734883120774146736367442_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (1,3); C. (1,1); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0398_547077494943269418648894508797_pos__multiselect",
+    "image": "images/LIDC-IDRI-0398_547077494943269418648894508797_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,3); B. (3,2); C. (1,2); D. (1,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0105_252212190506189941203009911930_pos__multiselect",
+    "image": "images/LIDC-IDRI-0105_252212190506189941203009911930_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,1); B. (2,3); C. (1,2); D. (3,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0039_306416903185052820442407106160_pos__multiselect",
+    "image": "images/LIDC-IDRI-0039_306416903185052820442407106160_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (2,1); C. (1,2); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0380_953919533552469460309736282809_pos__multiselect",
+    "image": "images/LIDC-IDRI-0380_953919533552469460309736282809_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,2); C. (2,2); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0649_176165333370699073734409556915_pos__multiselect",
+    "image": "images/LIDC-IDRI-0649_176165333370699073734409556915_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (3,2); C. (3,1); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0012_119598141509770713380547294720_pos__multiselect",
+    "image": "images/LIDC-IDRI-0012_119598141509770713380547294720_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (3,1); C. (2,2); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0841_226674829120640708875415486491_pos__multiselect",
+    "image": "images/LIDC-IDRI-0841_226674829120640708875415486491_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,1); B. (3,3); C. (1,3); D. (3,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0795_180963783294968254383600142969_pos__multiselect",
+    "image": "images/LIDC-IDRI-0795_180963783294968254383600142969_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,2); C. (2,3); D. (3,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0185_240208722886655356324177380259_pos__multiselect",
+    "image": "images/LIDC-IDRI-0185_240208722886655356324177380259_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (3,2); C. (2,2); D. (1,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0335_505781654891779950359860925562_pos__multiselect",
+    "image": "images/LIDC-IDRI-0335_505781654891779950359860925562_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (1,2); C. (2,3); D. (1,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0479_159094136638989767407557576109_pos__multiselect",
+    "image": "images/LIDC-IDRI-0479_159094136638989767407557576109_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,3); B. (1,2); C. (1,3); D. (3,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0602_194136062828072884722887328060_pos__multiselect",
+    "image": "images/LIDC-IDRI-0602_194136062828072884722887328060_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (3,2); C. (2,3); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0822_109220761398335495261485665762_pos__multiselect",
+    "image": "images/LIDC-IDRI-0822_109220761398335495261485665762_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (3,3); C. (2,3); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0577_327603791061817890983964971439_pos__multiselect",
+    "image": "images/LIDC-IDRI-0577_327603791061817890983964971439_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (1,1); C. (3,2); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0583_154000984324976664540802182771_pos__multiselect",
+    "image": "images/LIDC-IDRI-0583_154000984324976664540802182771_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,1); B. (1,2); C. (2,2); D. (3,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0335_834188298834903126334145320576_pos__multiselect",
+    "image": "images/LIDC-IDRI-0335_834188298834903126334145320576_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (2,3); C. (3,2); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0004_226269353909047545554945460400_pos__multiselect",
+    "image": "images/LIDC-IDRI-0004_226269353909047545554945460400_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (1,2); C. (1,1); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0499_384645064536028418502926789029_pos__multiselect",
+    "image": "images/LIDC-IDRI-0499_384645064536028418502926789029_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (2,3); C. (3,2); D. (1,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0741_126109130429318447904891349053_pos__multiselect",
+    "image": "images/LIDC-IDRI-0741_126109130429318447904891349053_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (1,3); C. (2,3); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0577_255632415825318034795016656381_pos__multiselect",
+    "image": "images/LIDC-IDRI-0577_255632415825318034795016656381_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,1); C. (1,2); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0386_289053020929166796290001760870_pos__multiselect",
+    "image": "images/LIDC-IDRI-0386_289053020929166796290001760870_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (2,1); C. (2,2); D. (3,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0397_174501912675196111065354261429_pos__multiselect",
+    "image": "images/LIDC-IDRI-0397_174501912675196111065354261429_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,1); C. (3,1); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0874_597643691998301112497805700306_pos__multiselect",
+    "image": "images/LIDC-IDRI-0874_597643691998301112497805700306_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (3,1); C. (2,1); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0135_535379892376913275209800732056_pos__multiselect",
+    "image": "images/LIDC-IDRI-0135_535379892376913275209800732056_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (1,1); C. (3,3); D. (3,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0637_231748210580473127399767569564_pos__multiselect",
+    "image": "images/LIDC-IDRI-0637_231748210580473127399767569564_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (3,1); C. (3,2); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0721_371844322767266076448966315717_pos__multiselect",
+    "image": "images/LIDC-IDRI-0721_371844322767266076448966315717_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (1,2); C. (2,1); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0637_289585053886954463342975671710_pos__multiselect",
+    "image": "images/LIDC-IDRI-0637_289585053886954463342975671710_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (3,2); C. (1,1); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0183_136560026296540434562156593933_pos__multiselect",
+    "image": "images/LIDC-IDRI-0183_136560026296540434562156593933_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,1); C. (2,1); D. (3,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0972_776713416460956744660667432479_pos__multiselect",
+    "image": "images/LIDC-IDRI-0972_776713416460956744660667432479_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (2,3); C. (1,1); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0822_165244925887642675789996444899_pos__multiselect",
+    "image": "images/LIDC-IDRI-0822_165244925887642675789996444899_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (2,3); C. (3,2); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0855_286433230610826707903734305925_pos__multiselect",
+    "image": "images/LIDC-IDRI-0855_286433230610826707903734305925_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (2,1); C. (3,3); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0567_126000379273054721576776836792_pos__multiselect",
+    "image": "images/LIDC-IDRI-0567_126000379273054721576776836792_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (2,3); C. (3,1); D. (1,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0011_274907356508518099730746312848_pos__multiselect",
+    "image": "images/LIDC-IDRI-0011_274907356508518099730746312848_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (3,1); C. (1,2); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0149_695942152061176160949590669702_pos__multiselect",
+    "image": "images/LIDC-IDRI-0149_695942152061176160949590669702_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (3,1); C. (1,1); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0874_458154478217684254297300313679_pos__multiselect",
+    "image": "images/LIDC-IDRI-0874_458154478217684254297300313679_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,2); C. (2,2); D. (3,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0956_284822577405651136783772642544_pos__multiselect",
+    "image": "images/LIDC-IDRI-0956_284822577405651136783772642544_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (3,3); C. (2,2); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0741_187742402211713971806621759198_pos__multiselect",
+    "image": "images/LIDC-IDRI-0741_187742402211713971806621759198_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (3,1); C. (3,2); D. (2,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0727_284280473291561116749695596082_pos__multiselect",
+    "image": "images/LIDC-IDRI-0727_284280473291561116749695596082_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,3); B. (3,3); C. (2,1); D. (1,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0902_324084172275101621576398487987_pos__multiselect",
+    "image": "images/LIDC-IDRI-0902_324084172275101621576398487987_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,1); B. (3,2); C. (1,3); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0433_286282535746128259805906472665_pos__multiselect",
+    "image": "images/LIDC-IDRI-0433_286282535746128259805906472665_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (3,2); C. (3,3); D. (1,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0358_240903126130342460365901702571_pos__multiselect",
+    "image": "images/LIDC-IDRI-0358_240903126130342460365901702571_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (2,3); C. (3,3); D. (1,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0652_146409966443398478429060031384_pos__multiselect",
+    "image": "images/LIDC-IDRI-0652_146409966443398478429060031384_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (3,1); C. (2,3); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0587_216781436987583592171498322725_pos__multiselect",
+    "image": "images/LIDC-IDRI-0587_216781436987583592171498322725_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (2,3); C. (3,1); D. (3,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0360_239661793576520054107876739365_pos__multiselect",
+    "image": "images/LIDC-IDRI-0360_239661793576520054107876739365_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,2); C. (2,1); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0473_242194193923100779740170019722_pos__multiselect",
+    "image": "images/LIDC-IDRI-0473_242194193923100779740170019722_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (2,3); C. (1,3); D. (1,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0637_323874733906932730633082794830_pos__multiselect",
+    "image": "images/LIDC-IDRI-0637_323874733906932730633082794830_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (1,2); C. (2,2); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0516_998213698828361672799310680410_pos__multiselect",
+    "image": "images/LIDC-IDRI-0516_998213698828361672799310680410_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (3,2); C. (3,1); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0433_320529772131941774829328669055_pos__multiselect",
+    "image": "images/LIDC-IDRI-0433_320529772131941774829328669055_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (1,1); C. (2,3); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0442_332074765379141694716280332200_pos__multiselect",
+    "image": "images/LIDC-IDRI-0442_332074765379141694716280332200_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,1); B. (1,2); C. (1,3); D. (3,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0599_300272103502249134329040330457_pos__multiselect",
+    "image": "images/LIDC-IDRI-0599_300272103502249134329040330457_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,3); B. (1,1); C. (1,2); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0473_311823245456764192179860390066_pos__multiselect",
+    "image": "images/LIDC-IDRI-0473_311823245456764192179860390066_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,3); B. (3,2); C. (1,3); D. (3,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0721_298574728803932850354961412811_pos__multiselect",
+    "image": "images/LIDC-IDRI-0721_298574728803932850354961412811_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,1); B. (1,2); C. (2,2); D. (3,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0056_680520911178302081885516268499_pos__multiselect",
+    "image": "images/LIDC-IDRI-0056_680520911178302081885516268499_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,1); B. (2,3); C. (1,3); D. (3,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0854_723035021646880707934361963276_pos__multiselect",
+    "image": "images/LIDC-IDRI-0854_723035021646880707934361963276_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,2); B. (3,1); C. (2,1); D. (1,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0858_126640824821775568773510034654_pos__multiselect",
+    "image": "images/LIDC-IDRI-0858_126640824821775568773510034654_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (3,2); C. (3,1); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0275_199561192812248110896130476960_pos__multiselect",
+    "image": "images/LIDC-IDRI-0275_199561192812248110896130476960_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (2,1); C. (2,2); D. (3,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0433_693432292608574873727613339588_pos__multiselect",
+    "image": "images/LIDC-IDRI-0433_693432292608574873727613339588_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,3); B. (2,2); C. (1,2); D. (1,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0672_311957352809805807017175665650_pos__multiselect",
+    "image": "images/LIDC-IDRI-0672_311957352809805807017175665650_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,1); B. (1,1); C. (2,2); D. (1,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0398_833290761410558048630495333360_pos__multiselect",
+    "image": "images/LIDC-IDRI-0398_833290761410558048630495333360_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (1,2); C. (1,3); D. (3,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0672_319048848818989191423327323307_pos__multiselect",
+    "image": "images/LIDC-IDRI-0672_319048848818989191423327323307_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (3,1); C. (1,1); D. (2,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0687_109589073782555723679808690146_pos__multiselect",
+    "image": "images/LIDC-IDRI-0687_109589073782555723679808690146_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,3); B. (1,3); C. (1,2); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0379_262224983285430453387931514371_pos__multiselect",
+    "image": "images/LIDC-IDRI-0379_262224983285430453387931514371_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,3); B. (3,2); C. (1,1); D. (3,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0628_302876169241345082788751611090_pos__multiselect",
+    "image": "images/LIDC-IDRI-0628_302876169241345082788751611090_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,1); B. (1,2); C. (2,3); D. (2,2). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0469_453331541665513087379250094926_pos__multiselect",
+    "image": "images/LIDC-IDRI-0469_453331541665513087379250094926_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (1,1); B. (3,2); C. (2,2); D. (3,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0542_220567078028714092986221991168_pos__multiselect",
+    "image": "images/LIDC-IDRI-0542_220567078028714092986221991168_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (2,2); B. (3,2); C. (2,3); D. (1,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0004_203766013809021049942391947414_pos__multiselect",
+    "image": "images/LIDC-IDRI-0004_203766013809021049942391947414_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (3,1); C. (1,2); D. (1,3). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  },
+  {
+    "id": "LIDC-IDRI-0398_299326486701240084077586055519_pos__multiselect",
+    "image": "images/LIDC-IDRI-0398_299326486701240084077586055519_pos_grid_plain.png",
+    "dataset": "LIDC-IDRI-Native-Visibility",
+    "modality": "CT",
+    "task": "micro-lesion-native-vqa-multiselect",
+    "conversations": [
+      {
+        "from": "human",
+        "value": "<image>\nThe image is divided into a 3x3 grid of equal-sized cells. Rows run top-to-bottom and columns run left-to-right. Exactly one of the following options directly and visibly contains the target nodule on this chest CT slice. Options: A. (3,2); B. (2,3); C. (2,2); D. (3,1). Select exactly one option and answer with one option letter only. Example: A."
+      }
+    ]
+  }
+]

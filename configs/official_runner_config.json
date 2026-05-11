@@ -1,0 +1,246 @@
+{
+  "runtime": {
+    "pythonpath": [
+      "code/runners",
+      "code/method",
+      "code/dependencies"
+    ],
+    "device": "cuda",
+    "count_select_max_new_tokens": 96,
+    "report_max_new_tokens": 160
+  },
+  "common_easylens_parameters": {
+    "vision_layer": 1,
+    "support_mode": "global_topk",
+    "suppression_radius": 1,
+    "margin_weight": 0.35,
+    "shape_weight": 1.0,
+    "score_threshold": 0.0,
+    "seed_mode": "local_peak_topk",
+    "seed_peak_kernel": 5,
+    "base_score_mode": "seed_only",
+    "raw_score_weight": 1.0,
+    "gap_score_weight": 0.0,
+    "retrieval_temperature": 0.1
+  },
+  "subtle_lesion_medgemma15": {
+    "model_kind": "medgemma1.5",
+    "model_path_env": "MODEL_PATH",
+    "benchmark_root_env": "BENCHMARK_ROOT",
+    "bank_root_env": "BANK_ROOT",
+    "output_root_env": "OUTPUT_ROOT",
+    "tasks": {
+      "rex_count": {
+        "task": "count",
+        "benchmark_dir": "benchmarks/rex_count",
+        "bank_file": "rex_count_select_shape_bank.pt",
+        "beta": 1.25,
+        "selector_k": 384,
+        "seed_topk": 32,
+        "retrieval_topm": 128,
+        "support_score_mode": "shape_only",
+        "strict_count_prompt": false
+      },
+      "rex_single_select": {
+        "task": "multiselect",
+        "benchmark_dir": "benchmarks/rex_single_select",
+        "bank_file": "rex_count_select_shape_bank.pt",
+        "beta": 0.75,
+        "selector_k": 256,
+        "seed_topk": 16,
+        "retrieval_topm": 64,
+        "support_score_mode": "shape_only"
+      },
+      "rex_report": {
+        "task": "report",
+        "benchmark_dir": "benchmarks/rex_report",
+        "bank_file": "rex_report_shape_bank.pt",
+        "beta": 0.5,
+        "selector_k": 256,
+        "seed_topk": 16,
+        "retrieval_topm": 64,
+        "support_score_mode": "shape_only",
+        "prompt_mode": "benchmark_raw",
+        "topk_steps": 3
+      },
+      "lidc_count": {
+        "task": "count",
+        "benchmark_dir": "benchmarks/lidc_count",
+        "bank_file": "lidc_count_report_shape_bank.pt",
+        "beta": 0.75,
+        "selector_k": 256,
+        "seed_topk": 16,
+        "retrieval_topm": 64,
+        "support_score_mode": "shape_only",
+        "strict_count_prompt": false
+      },
+      "lidc_single_select": {
+        "task": "multiselect",
+        "benchmark_dir": "benchmarks/lidc_single_select",
+        "bank_file": "lidc_single_select_shape_bank.pt",
+        "beta": 0.75,
+        "selector_k": 256,
+        "seed_topk": 16,
+        "retrieval_topm": 64,
+        "support_score_mode": "shape_only"
+      },
+      "lidc_report": {
+        "task": "report",
+        "benchmark_dir": "benchmarks/lidc_report",
+        "bank_file": "lidc_count_report_shape_bank.pt",
+        "beta": 0.5,
+        "selector_k": 256,
+        "seed_topk": 16,
+        "retrieval_topm": 64,
+        "support_score_mode": "shape_only",
+        "prompt_mode": "benchmark_raw",
+        "topk_steps": 3
+      },
+      "abdomen_count": {
+        "task": "count",
+        "benchmark_dir": "benchmarks/abdomen_count",
+        "bank_file": "abdomen_count_shape_bank.pt",
+        "beta": 0.75,
+        "selector_k": 256,
+        "seed_topk": 32,
+        "retrieval_topm": 64,
+        "support_score_mode": "shape_only",
+        "strict_count_prompt": false
+      },
+      "abdomen_single_select": {
+        "task": "multiselect",
+        "benchmark_dir": "benchmarks/abdomen_single_select",
+        "bank_file": "abdomen_single_select_shape_bank.pt",
+        "beta": 0.75,
+        "selector_k": 256,
+        "seed_topk": 16,
+        "retrieval_topm": 64,
+        "support_score_mode": "shape_only"
+      },
+      "abdomen_report": {
+        "task": "report",
+        "benchmark_dir": "benchmarks/abdomen_report",
+        "bank_file": "abdomen_report_shape_bank.pt",
+        "beta": 0.5,
+        "selector_k": 256,
+        "seed_topk": 16,
+        "retrieval_topm": 64,
+        "support_score_mode": "shape_only",
+        "prompt_mode": "benchmark_raw",
+        "topk_steps": 3
+      }
+    }
+  },
+  "normal_lesion_rrg_medgemma15": {
+    "model_kind": "medgemma1.5",
+    "model_path_env": "MODEL_PATH",
+    "benchmark_root_env": "NORMAL_BENCHMARK_ROOT",
+    "bank_root_env": "BANK_ROOT",
+    "output_root_env": "OUTPUT_ROOT",
+    "bank_build": {
+      "max_bg_per_image": 512,
+      "max_lesion_tokens": 30000,
+      "max_bg_global_tokens": 60000,
+      "body_intensity_threshold": 5.0
+    },
+    "report_eval": {
+      "prompt_mode": "benchmark_raw",
+      "topk_steps": 3,
+      "max_new_tokens": 160,
+      "support_score_mode": "shape_only"
+    },
+    "datasets": {
+      "mimic_cxr": {
+        "beta": 0.5,
+        "selector_k": 256,
+        "seed_topk": 16
+      },
+      "kvasir_seg": {
+        "beta": 1.0,
+        "selector_k": 384,
+        "seed_topk": 32
+      },
+      "bkai_polyp": {
+        "beta": 2.0,
+        "selector_k": 512,
+        "seed_topk": 48
+      }
+    }
+  },
+  "backbone_adaptation": {
+    "benchmark_root_env": "BENCHMARK_ROOT",
+    "normal_benchmark_root_env": "NORMAL_BENCHMARK_ROOT",
+    "bank_root_env": "BANK_ROOT",
+    "output_root_env": "OUTPUT_ROOT",
+    "rex": {
+      "llava-med": {
+        "bank_file": "llava-med_bank.pt",
+        "stat": "b0.50_k256_s16_shape_only",
+        "sel": "b0.75_k256_s32_shape_only",
+        "gen": "b1.50_k512_s32_hybrid_sum"
+      },
+      "radfm": {
+        "bank_file": "radfm_bank.pt",
+        "stat": "b1.50_k512_s32_hybrid_sum",
+        "sel": "b1.50_k256_s32_shape_only",
+        "gen": "b2.00_k512_s32_shape_only"
+      },
+      "lingshu": {
+        "bank_file": "lingshu_rex_bank.pt",
+        "stat": "b0.00_k64_s8_shape_only",
+        "sel": "b1.00_k256_s32_hybrid_max",
+        "gen": "b2.00_k512_s32_shape_only"
+      },
+      "hulu-med-7b": {
+        "bank_file": "hulu-med-7b_bank.pt",
+        "stat": "b2.00_k512_s32_shape_only",
+        "sel": "b1.00_k256_s16_hybrid_sum",
+        "gen": "b1.50_k512_s32_hybrid_sum"
+      },
+      "medgemma": {
+        "bank_file": "medgemma_bank.pt",
+        "stat": "b1.50_k256_s32_shape_only",
+        "sel": "b0.75_k128_s16_shape_only",
+        "gen": "b1.50_k256_s32_shape_only"
+      },
+      "medgemma1.5": {
+        "bank_file": "medgemma1.5_bank.pt",
+        "stat": "rex_count",
+        "sel": "rex_single_select",
+        "gen": "rex_report"
+      }
+    },
+    "kvasir_seg": {
+      "llava-med": {
+        "BL_1": "b1.50_k512_s32_shape_only",
+        "METEOR": "b1.50_k512_s32_shape_only",
+        "ROUGE_L": "b0.75_k256_s32_shape_only"
+      },
+      "radfm": {
+        "BL_1": "b1.00_k384_s32_shape_only",
+        "METEOR": "b1.00_k384_s32_shape_only",
+        "ROUGE_L": "b0.75_k256_s32_shape_only"
+      },
+      "lingshu": {
+        "BL_1": "b1.00_k512_s32_shape_only",
+        "METEOR": "b1.00_k512_s32_shape_only",
+        "ROUGE_L": "b1.00_k512_s32_shape_only"
+      },
+      "hulu-med-7b": {
+        "BL_1": "b0.00_k128_s16_shape_only",
+        "METEOR": "b0.00_k128_s16_shape_only",
+        "ROUGE_L": "b0.00_k128_s16_shape_only"
+      },
+      "medgemma": {
+        "BL_1": "b1.00_k384_s32_shape_only",
+        "METEOR": "b1.00_k384_s32_shape_only",
+        "ROUGE_L": "b1.50_k512_s32_shape_only"
+      },
+      "medgemma1.5": {
+        "BL_1": "b1.00_k384_s32_shape_only",
+        "METEOR": "b1.00_k384_s32_shape_only",
+        "ROUGE_L": "b1.00_k384_s32_shape_only"
+      }
+    }
+  }
+}

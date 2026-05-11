@@ -1,0 +1,10 @@
+benchmark,n
+rex_count,147
+rex_single_select,90
+rex_report,60
+lidc_count,132
+lidc_single_select,133
+lidc_report,60
+abdomen_count,86
+abdomen_single_select,104
+abdomen_report,50

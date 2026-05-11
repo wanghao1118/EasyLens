@@ -1,0 +1,47 @@
+[
+  {
+    "benchmark": "rex_count",
+    "n": 147,
+    "sample_id_file": "benchmark_sample_ids/rex_count/sample_ids.csv"
+  },
+  {
+    "benchmark": "rex_single_select",
+    "n": 90,
+    "sample_id_file": "benchmark_sample_ids/rex_single_select/sample_ids.csv"
+  },
+  {
+    "benchmark": "rex_report",
+    "n": 60,
+    "sample_id_file": "benchmark_sample_ids/rex_report/sample_ids.csv"
+  },
+  {
+    "benchmark": "lidc_count",
+    "n": 132,
+    "sample_id_file": "benchmark_sample_ids/lidc_count/sample_ids.csv"
+  },
+  {
+    "benchmark": "lidc_single_select",
+    "n": 133,
+    "sample_id_file": "benchmark_sample_ids/lidc_single_select/sample_ids.csv"
+  },
+  {
+    "benchmark": "lidc_report",
+    "n": 60,
+    "sample_id_file": "benchmark_sample_ids/lidc_report/sample_ids.csv"
+  },
+  {
+    "benchmark": "abdomen_count",
+    "n": 86,
+    "sample_id_file": "benchmark_sample_ids/abdomen_count/sample_ids.csv"
+  },
+  {
+    "benchmark": "abdomen_single_select",
+    "n": 104,
+    "sample_id_file": "benchmark_sample_ids/abdomen_single_select/sample_ids.csv"
+  },
+  {
+    "benchmark": "abdomen_report",
+    "n": 50,
+    "sample_id_file": "benchmark_sample_ids/abdomen_report/sample_ids.csv"
+  }
+]
