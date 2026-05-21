@@ -10,6 +10,8 @@ __pycache__/
 *.nii
 *.nii.gz
 *.png
+!assets/
+!assets/*.png
 *.jpg
 *.jpeg
 *.tar
