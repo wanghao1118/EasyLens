@@ -1,75 +1,129 @@
-# EasyLens
+<div align="center">
 
-**A Training-Free Plug-and-Play Subtle-Lesion Representation Amplifier for Medical Vision-Language Models**
+<h1>EasyLens: A Training-Free Plug-and-Play Subtle-Lesion Representation Amplifier for Medical Vision-Language Models</h1>
 
-Paper: [arXiv:2606.06379](https://arxiv.org/abs/2606.06379)
+<p>
+  <a href="https://arxiv.org/abs/2606.06379"><img src="https://img.shields.io/badge/arXiv-2606.06379-b31b1b" alt="arXiv paper"></a>
+  <a href="https://arxiv.org/pdf/2606.06379"><img src="https://img.shields.io/badge/Paper-PDF-0b7285" alt="Paper PDF"></a>
+</p>
 
-EasyLens is an inference-time adapter for frozen medical vision-language models. It uses an offline prototype bank to identify lesion-relevant visual patches and applies morphology-guided residual enhancement before the frozen model consumes the visual sequence. It does not update the backbone and does not require lesion masks at inference time.
+<p>Qiwei Zeng, Hao Wang, Jinghao Lin, Shuchang Ye, Yuezhe Yang,<br>
+Yige Peng, Haoyuan Che, Jinman Kim, Lei Bi</p>
+
+<p>Jilin University · The University of Sydney · Northeastern University · Shanghai Jiao Tong University</p>
+
+</div>
+
+## Overview
+
+**EasyLens** is a training-free inference-time adapter that helps frozen medical vision-language models (VLMs) recognize subtle lesions. It builds an offline pathology-anatomy prototype bank, selects lesion-relevant visual patches, and strengthens their representations before the frozen VLM processes them. No backbone update or lesion mask is needed at inference time.
+
+![EasyLens overview: weak lesion evidence is selected and amplified before report generation](assets/figure_overview.png)
+
+Small, low-contrast findings can be present in early patch representations but lose prominence as visual tokens are aggregated. EasyLens works at the patch level to keep that evidence visible.
 
 <p align="center">
-  <img src="assets/benchmark_distribution.png" width="72%" alt="Subtle-lesion benchmark distribution">
+  <img src="assets/figure_representation_dilution.png" width="68%" alt="Subtle-lesion evidence in early and late visual representations">
 </p>
 
 ## Method
 
-EasyLens has three components:
+![EasyLens pipeline: EasyBank construction and training-free inference](assets/figure_flow.png)
 
-1. **EasyBank** clusters one normalized mean lesion embedding per construction image, stores patch-level lesion supports under the image's assigned prototype, estimates a morphology prior for each prototype, and clusters normal embeddings separately at every patch location.
-2. **EasyTag** contrasts each inference patch with its top-M lesion prototypes and same-location normal prototypes, applies the counterfactual sigmoid score, calibrates the global top-K0 seeds with morphology priors, and retains the global top-K candidates by calibrated score.
-3. **EasyAmplifier** retrieves references only from the selected prototype's support memory and applies continuous morphology-weighted residual updates.
+1. **EasyBank** builds lesion prototypes, prototype-specific support memories, morphology priors, and location-wise normal prototypes from an independent construction set.
+2. **EasyTag** contrasts each inference patch with lesion and anatomy-matched normal prototypes, then selects candidates using counterfactual scores and morphology-aware calibration.
+3. **EasyAmplifier** retrieves support from the selected lesion prototype and applies a morphology-guided residual update to the frozen visual tokens.
 
-The implementation is in `code/method/easylens_core.py`. Schema-v2 banks implement the paper formulation. Older schema-v1 banks remain readable for audit compatibility and are explicitly labeled `legacy_approximation` in run metadata.
+The equation-literal implementation is in [`code/method/easylens_core.py`](code/method/easylens_core.py). The public builder creates schema-v2 banks. Older schema-v1 banks remain readable for audit compatibility and are labeled `legacy_approximation` at runtime.
 
-## Repository layout
+## Subtle-Lesion Benchmark
 
-```text
-.
-├── benchmarks/              # 9 benchmark definitions, prompts, and answer labels
-├── benchmark_sample_ids/    # Published sample lists
-├── banks/                   # Bank schemas, identities, and checksums; no tensors
-├── code/
-│   ├── method/              # EasyLens core
-│   ├── runners/             # Evaluation, scoring, and bank construction
-│   ├── dependencies/        # Shared runner utilities
-│   └── launch_scripts/      # Reproducible entry points
-├── configs/                 # Official task settings
-├── tests/                   # Synthetic method and metric tests
-└── requirements.txt
-```
-
-## Public release contents
-
-The public package includes all nine benchmark definitions, prompts, answer labels, sample lists, official evaluation runners, metric implementations, bank-construction code, task configuration, and synthetic tests.
-
-It does not include model checkpoints, adapter weights, selector checkpoints, EasyBank `.pt` tensors, source medical images, masks, or raw reports. Weight-like extensions are blocked by `.gitignore`, and the release validator fails if any such file is present.
-
-## Installation
-
-Python 3.10 or newer and a CUDA-capable PyTorch installation are recommended.
-
-```bash
-git clone https://github.com/wanghao1118/easylens.git
-cd easylens
-python3 -m pip install -r requirements.txt
-```
-
-Model-specific backbones such as LLaVA-Med, RadFM, Lingshu, and Hulu-Med may require their upstream runtime dependencies in addition to `requirements.txt`.
-
-## Data and model preparation
-
-The benchmark metadata, questions, answer labels, and sample lists are included in this repository. Source medical images are not redistributed; obtain each dataset and model from its original provider under the applicable terms, then arrange authorized evaluation images under the relative paths recorded in `benchmarks/*/images/`.
-
-The published benchmark payload is copied byte-for-byte from the May 2026 Google Drive evaluation bundle. Its 46 metadata and sample-list files are pinned by `configs/benchmark_source_manifest.json`; the release validator recomputes the aggregate SHA-256 digest so benchmark edits cannot be mistaken for the paper evaluation set.
-
-The subtle-lesion benchmark sizes are:
+The released benchmark covers regional statistics (**Stat.**), region selection (**Sel.**), and lesion-aware report generation (**Gen.**) across three CT datasets. Its questions, answer labels, and sample lists are included in this repository.
 
 | Dataset | Stat. | Sel. | Gen. |
-|---|---:|---:|---:|
+|:--|--:|--:|--:|
 | ReXGroundingCT | 147 | 90 | 60 |
 | LIDC-IDRI | 132 | 133 | 60 |
 | AbdomenAtlas 3.0 Mini | 86 | 104 | 50 |
 
-For report generation, the runtime needs a per-sample target description. The unchanged Google Drive exports for LIDC-IDRI and AbdomenAtlas contain synthetic benchmark target text in the answer's `Target finding:` line, which the loader extracts without editing the benchmark. The ReX export contains only a binary answer and therefore cannot reproduce the paper's lesion-token probe by itself. Users with authorized access must prepare a local evaluation copy:
+<p align="center">
+  <img src="assets/benchmark_distribution.png" width="72%" alt="Distribution of the nine subtle-lesion benchmark tasks">
+</p>
+
+The 46 published benchmark metadata and sample-list files are pinned by [`configs/benchmark_source_manifest.json`](configs/benchmark_source_manifest.json). The paper figures above are illustrative assets; original dataset images, masks, raw reports, model weights, and EasyBank tensors are not redistributed here.
+
+## Results
+
+The following are **paper-reported** scores for MedGemma1.5 before and after EasyLens. Each cell shows **frozen backbone -> EasyLens**; higher is better. See [Table 1 of the paper](https://arxiv.org/html/2606.06379v3) for metric definitions and comparisons with other models.
+
+| Dataset | Stat. | Sel. | Gen. |
+|:--|:--:|:--:|:--:|
+| ReXGroundingCT | 42.86 -> **66.67** | 23.33 -> **31.11** | 4.41 -> **5.15** |
+| LIDC-IDRI | 20.45 -> **30.30** | 27.82 -> **36.09** | 41.93 -> **45.86** |
+| AbdomenAtlas 3.0 Mini | 15.12 -> **52.33** | 49.04 -> **55.77** | 38.18 -> **40.67** |
+
+The paper also evaluates transfer to LLaVA-Med, RadFM, Lingshu, and MedGemma, and reports gains in subtle-lesion report generation across these frozen backbones. These table values are paper results; locally rebuilt banks are not the historical artifacts used to produce them.
+
+## Qualitative Analysis
+
+In the paper's pulmonary-nodule case study, EasyTag selects lesion-relevant patches and EasyAmplifier strengthens their response. The EasyLens-enhanced model mentions the finding that the frozen backbone omits.
+
+![EasyLens case study showing patch selection, representation enhancement, and generated reports](assets/figure_cs1.png)
+
+## Release Contents
+
+| Path | Contents |
+|:--|:--|
+| [`code/method/`](code/method) | EasyLens core and bank-construction code |
+| [`code/runners/`](code/runners) | Official evaluation and scoring entry points |
+| [`code/launch_scripts/`](code/launch_scripts) | Bank-building and evaluation commands |
+| [`benchmarks/`](benchmarks) | Nine benchmark definitions, prompts, and answer labels |
+| [`benchmark_sample_ids/`](benchmark_sample_ids) | Published evaluation sample lists |
+| [`banks/`](banks) | Bank schema notes and legacy artifact checksums, without tensors |
+| [`configs/`](configs) | Task settings and benchmark provenance |
+| [`tests/`](tests) | Synthetic method and release tests |
+
+## Quick Start
+
+Python 3.10 or newer and a CUDA-capable PyTorch installation are recommended. Model-specific backbones may require their upstream dependencies in addition to this repository's requirements.
+
+```bash
+git clone https://github.com/wanghao1118/EasyLens.git
+cd EasyLens
+python3 -m pip install -r requirements.txt
+```
+
+The repository includes benchmark metadata, but you must obtain the evaluation images and the model checkpoint from their original providers under the applicable access terms. Place authorized evaluation images at the relative paths referenced by `benchmarks/*/images/`.
+
+## Build EasyBank
+
+Provide an **independent construction split**, disjoint from evaluation. `BANK_SOURCE_ROOT` should contain `rex/`, `lidc/`, and `abdomen/`, each with a `manifest.csv`, aligned images, and pixel-level lesion supervision. The builder accepts `mask_path`, `mask`, or `raw_mask` fields for ordinary masks. ReX 4D segmentations and LIDC polygons can be supplied through `REX_RAW_ROOT` and `LIDC_SOURCE_MANIFEST`, respectively. Coarse VQA grid labels are not substitutes for lesion masks.
+
+```bash
+export MODEL_PATH=/path/to/medgemma-1.5-4b-it
+export BANK_SOURCE_ROOT=/path/to/independent_construction_split
+export BANK_ROOT=/path/to/banks/subtle_lesion_medgemma15
+export REX_RAW_ROOT=/path/to/authorized/rex/raw
+export LIDC_SOURCE_MANIFEST=/path/to/authorized/lidc_source_manifest.csv
+
+bash code/launch_scripts/build_subtle_lesion_banks_medgemma15.sh
+```
+
+This produces one schema-v2 `.pt` bank per dataset: `rex_shape_bank_v2.pt`, `lidc_shape_bank_v2.pt`, and `abdomen_shape_bank_v2.pt`. The Stat., Sel., and Gen. tasks for a dataset share its bank. Construction samples and bank tensors are not part of the public release.
+
+## Run Evaluation
+
+```bash
+python3 code/runners/easylens_official_runner.py subtle-medgemma15 \
+  --model-path /path/to/medgemma-1.5-4b-it \
+  --benchmark-root /path/to/benchmarks \
+  --bank-root /path/to/banks/subtle_lesion_medgemma15 \
+  --output-root outputs/subtle_lesion_medgemma15
+```
+
+Use `--tasks rex_count rex_single_select rex_report` to run only selected tasks. The packaged operating points are in [`configs/official_runner_config.json`](configs/official_runner_config.json); its `paper_equations_27_40` method profile uses global candidate selection and prototype-consistent support retrieval.
+
+For ReX report generation, the published binary answer alone does not contain the target description required by the paper's lesion-token probe. If you have authorized access to the source manifest, prepare a local evaluation copy first:
 
 ```bash
 python3 code/tools/prepare_rex_report_targets.py \
@@ -78,100 +132,15 @@ python3 code/tools/prepare_rex_report_targets.py \
   --output-dir /path/to/local/benchmarks/rex_report
 ```
 
-Place or link the authorized evaluation images under the resulting `images/` directory. The Appendix B.2 probe then derives a strict, per-sample lesion-token set and evaluates only the first three decoding steps.
+Place the corresponding authorized images under that local benchmark's `images/` directory. The report probe evaluates the first three decoding steps. Its vocabulary top-K is set to 50 in this release configuration; the paper defines top-K without fixing a numeric value.
 
-## Build EasyBank
+## Research Use
 
-Use an independent construction split, not a held-out evaluation split. `BANK_SOURCE_ROOT` must contain one source directory per dataset—`rex/`, `lidc/`, and `abdomen/`—and each directory must contain a `manifest.csv`, aligned images, and pixel-level lesion supervision. Generic 2D/3D masks can be referenced by `mask_path`, `mask`, or `raw_mask`. ReX 4D finding segmentations are projected from an authorized raw root by setting `REX_RAW_ROOT`; LIDC polygons are joined through `LIDC_SOURCE_MANIFEST`. Coarse VQA grid labels are rejected by default because they are not equivalent to the lesion masks used in the paper.
-
-```bash
-export MODEL_PATH=/path/to/medgemma-1.5-4b-it
-export BANK_SOURCE_ROOT=/path/to/independent_bank_construction_split
-export BANK_ROOT=/path/to/output/banks/subtle_lesion_medgemma15
-export REX_RAW_ROOT=/path/to/authorized/rex/raw
-export LIDC_SOURCE_MANIFEST=/path/to/authorized/lidc_source_manifest.csv
-
-bash code/launch_scripts/build_subtle_lesion_banks_medgemma15.sh
-```
-
-Useful construction controls include `NUM_LESION_PROTOTYPES`, `NUM_NORMAL_PROTOTYPES`, `MAX_LESION_TOKENS`, `MAX_BG_GLOBAL_TOKENS`, `SHAPE_RADIUS`, and `SEED`.
-
-The builder writes schema-v2 `.pt` files containing:
-
-- image-balanced lesion prototypes;
-- cluster-conditioned lesion support memories;
-- prototype-specific morphology priors normalized to `[0, 1]`;
-- location-wise anatomy-aware normal prototypes;
-- schema and construction metadata.
-
-It writes one reusable bank per dataset: `rex_shape_bank_v2.pt`, `lidc_shape_bank_v2.pt`, and `abdomen_shape_bank_v2.pt`. The corresponding Stat., Sel., and Gen. tasks all consume the same dataset bank, matching the paper's construction-set definition.
-
-## Run the subtle-lesion evaluation
-
-```bash
-export MODEL_PATH=/path/to/medgemma-1.5-4b-it
-export BENCHMARK_ROOT=/path/to/benchmarks
-export BANK_ROOT=/path/to/banks/subtle_lesion_medgemma15
-export OUTPUT_ROOT=outputs/subtle_lesion_medgemma15
-
-python3 code/runners/easylens_official_runner.py subtle-medgemma15 \
-  --model-path "$MODEL_PATH" \
-  --benchmark-root "$BENCHMARK_ROOT" \
-  --bank-root "$BANK_ROOT" \
-  --output-root "$OUTPUT_ROOT"
-```
-
-Run selected tasks with `--tasks`, for example:
-
-```bash
-python3 code/runners/easylens_official_runner.py subtle-medgemma15 \
-  --model-path "$MODEL_PATH" \
-  --benchmark-root "$BENCHMARK_ROOT" \
-  --bank-root "$BANK_ROOT" \
-  --output-root "$OUTPUT_ROOT" \
-  --tasks rex_count rex_single_select rex_report
-```
-
-The packaged operating points are stored in `configs/official_runner_config.json`. The method path is identified as `paper_equations_27_40`: global top-K0 seed selection, global top-K calibrated candidate selection, and one nearest support retrieved from the recalled prototype memory. This is an equation-literal implementation, not a claim that a locally rebuilt bank reproduces the paper's table artifacts. Shared defaults include vision layer 1, prototype top-M of 1, counterfactual temperature 1.0, morphology weight 1.0, a 96-token limit for Stat./Sel., a 160-token limit for Gen., and a three-step report probe window. Dataset-task values for residual strength β (the paper's α), candidate budget K, and seed budget K0 are recorded separately in the same file.
-
-## Report-generation probe
-
-The Gen. metric follows Appendix B.2:
-
-1. derive the strict lesion-token set from the sample's target description;
-2. compute the next-token distribution for the first three decoding steps;
-3. intersect the lesion-token set with the vocabulary top-K at each step;
-4. sum the retained probability mass and report `100 ×` its three-step mean.
-
-`--probe-vocab-topk` controls K and is set to 50 in the release configuration. The arXiv v3 equations define top-K but do not state its numeric value, so 50 is an explicit release default rather than a paper-verifiable constant. The probe is evaluation-only and does not change the prompt or generation procedure.
-
-## Verification
-
-Run the synthetic tests with:
-
-```bash
-python3 -m unittest discover -s tests -v
-```
-
-Validate that the public package contains all benchmarks and evaluation entry points and contains no weights:
-
-```bash
-python3 code/tools/validate_release_package.py
-```
-
-Build the validated source package with the same exclusion policy:
-
-```bash
-bash code/tools/build_release_package.sh dist/easylens-source-release.tar.gz
-```
-
-Legacy artifact hashes are retained only for audit traceability; the tensors themselves are excluded. A runtime warning and `bank_alignment=legacy_approximation` prevent separately obtained legacy results from being confused with the equation-literal schema-v2 implementation. The release does not publish the private construction samples or claim that a locally rebuilt bank is the artifact behind the paper's tables.
-
-## Research-use notice
-
-EasyLens is a research prototype and is not a standalone clinical diagnostic system. Users are responsible for dataset access, privacy, licensing, and clinical validation requirements.
+EasyLens is a research prototype, not a standalone clinical diagnostic system. Users are responsible for dataset access, privacy, licensing, and clinical validation. Apart from the paper figures in `assets/`, the release contains no original dataset images, masks, raw reports, model checkpoints, selector weights, or EasyBank tensors.
 
 ## Citation
+
+If EasyLens is useful in your research, please cite the [paper](https://arxiv.org/abs/2606.06379):
 
 ```bibtex
 @article{easylens2026,
