@@ -7,7 +7,7 @@
   <a href="https://arxiv.org/pdf/2606.06379"><img src="https://img.shields.io/badge/Paper-PDF-0b7285" alt="Paper PDF"></a>
 </p>
 
-<p>Qiwei Zeng, Hao Wang, Jinghao Lin, Shuchang Ye, Yuezhe Yang,<br>
+<p>Hao Wang, Qiwei Zeng, Jinghao Lin, Shuchang Ye, Yuezhe Yang,<br>
 Yige Peng, Haoyuan Che, Jinman Kim, Lei Bi</p>
 
 <p>Jilin University · The University of Sydney · Northeastern University · Shanghai Jiao Tong University</p>
