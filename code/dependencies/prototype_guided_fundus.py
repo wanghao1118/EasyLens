@@ -530,6 +530,11 @@ def build_modified_final_tokens_from_alpha(
         replace_mask = alpha_focus > 0
         modified = final_float.clone()
         modified[replace_mask] = ref_float[replace_mask]
+    elif mode == "paper_residual":
+        if reference_tokens is None:
+            raise ValueError("reference_tokens is required for paper_residual mode.")
+        ref_float = reference_tokens.float()
+        modified = final_float + beta * raw_alpha.unsqueeze(-1) * (ref_float - final_float)
     elif mode == "token_delta":
         if reference_tokens is None:
             raise ValueError("reference_tokens is required for token_delta mode.")

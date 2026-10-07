@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use EasyLens, please cite this work."
+title: "EasyLens: A Training-Free Plug-and-Play Subtle-Lesion Representation Amplifier for Medical Vision-Language Models"
+type: software
+authors:
+  - family-names: Zeng
+    given-names: Qiwei
+  - family-names: Wang
+    given-names: Hao
+  - family-names: Lin
+    given-names: Jinghao
+  - family-names: Ye
+    given-names: Shuchang
+  - family-names: Yang
+    given-names: Yuezhe
+  - family-names: Peng
+    given-names: Yige
+  - family-names: Che
+    given-names: Haoyuan
+  - family-names: Kim
+    given-names: Jinman
+  - family-names: Bi
+    given-names: Lei
+repository-code: "https://github.com/wanghao1118/easylens"
+url: "https://arxiv.org/abs/2606.06379"
+doi: "10.48550/arXiv.2606.06379"
+identifiers:
+  - type: other
+    value: "arXiv:2606.06379"
+    description: "arXiv identifier"
+date-released: 2026-09-30

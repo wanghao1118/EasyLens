@@ -58,9 +58,12 @@ def main() -> None:
     parser.add_argument("--predictions-path", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--model-kind", default="unknown")
+    parser.add_argument("--limit", type=int, default=0, help="Score the first N benchmark questions; 0 scores all.")
     args = parser.parse_args()
 
     questions = load_json(args.benchmark_dir / "vqa_multiselect_llava.json")
+    if args.limit > 0:
+        questions = questions[: args.limit]
     answers = load_json(args.benchmark_dir / "answers.json")
     answer_by_id = {str(row["id"]): str(row["answer"]).strip().upper() for row in answers}
     pred_by_id = {str(row.get("sample_id") or row.get("id") or row.get("question_id")): row for row in read_jsonl(args.predictions_path)}
@@ -99,6 +102,7 @@ def main() -> None:
         "model_kind": args.model_kind,
         "benchmark_dir": str(args.benchmark_dir),
         "task": "multiselect",
+        "limit": args.limit,
         "predictions_path": str(args.predictions_path),
         "metrics": {
             "overall": {

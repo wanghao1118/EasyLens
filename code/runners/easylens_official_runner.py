@@ -16,7 +16,10 @@ def package_root() -> Path:
 
 def load_config(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
+        config = json.load(f)
+    if config.get("method_profile") != "paper_equations_27_40":
+        raise SystemExit("Official configuration must declare method_profile=paper_equations_27_40.")
+    return config
 
 
 def env_or_arg(value: str | None, env_name: str | None, default: Path | None = None) -> Path:
@@ -50,28 +53,14 @@ def add_common_easylens_args(command: list[str], common: dict[str, Any], device:
         [
             "--vision-layer",
             str(common["vision_layer"]),
-            "--support-mode",
-            str(common["support_mode"]),
-            "--suppression-radius",
-            str(common["suppression_radius"]),
-            "--margin-weight",
-            str(common["margin_weight"]),
             "--shape-weight",
             str(common["shape_weight"]),
-            "--score-threshold",
-            str(common["score_threshold"]),
-            "--seed-mode",
-            str(common["seed_mode"]),
-            "--seed-peak-kernel",
-            str(common["seed_peak_kernel"]),
-            "--base-score-mode",
-            str(common["base_score_mode"]),
-            "--raw-score-weight",
-            str(common["raw_score_weight"]),
-            "--gap-score-weight",
-            str(common["gap_score_weight"]),
-            "--retrieval-temperature",
-            str(common["retrieval_temperature"]),
+            "--prototype-topm",
+            str(common["prototype_topm"]),
+            "--counterfactual-temperature",
+            str(common["counterfactual_temperature"]),
+            "--amplifier-threshold",
+            str(common["amplifier_threshold"]),
             "--device",
             device,
         ]
@@ -86,6 +75,7 @@ def score_single_select(
     predictions_path: Path,
     output_dir: Path,
     model_kind: str,
+    limit: int,
     env: dict[str, str],
     dry_run: bool,
 ) -> None:
@@ -102,6 +92,8 @@ def score_single_select(
         "--model-kind",
         model_kind,
     ]
+    if limit > 0:
+        command.extend(["--limit", str(limit)])
     run_command(command, env, dry_run)
 
 
@@ -160,10 +152,6 @@ def run_subtle_medgemma15(args: argparse.Namespace, config: dict[str, Any], env:
                 str(task_cfg["selector_k"]),
                 "--seed-topk",
                 str(task_cfg["seed_topk"]),
-                "--retrieval-topm",
-                str(task_cfg["retrieval_topm"]),
-                "--support-score-mode",
-                str(task_cfg["support_score_mode"]),
                 "--max-new-tokens",
                 str(runtime["count_select_max_new_tokens"]),
             ]
@@ -181,6 +169,7 @@ def run_subtle_medgemma15(args: argparse.Namespace, config: dict[str, Any], env:
                     predictions_path=out_dir / "multiselect_answers.jsonl",
                     output_dir=out_dir,
                     model_kind=str(suite["model_kind"]),
+                    limit=int(args.limit),
                     env=env,
                     dry_run=args.dry_run,
                 )
@@ -207,14 +196,12 @@ def run_subtle_medgemma15(args: argparse.Namespace, config: dict[str, Any], env:
                 str(task_cfg["selector_k"]),
                 "--seed-topk",
                 str(task_cfg["seed_topk"]),
-                "--retrieval-topm",
-                str(task_cfg["retrieval_topm"]),
-                "--support-score-mode",
-                str(task_cfg["support_score_mode"]),
                 "--max-new-tokens",
                 str(runtime["report_max_new_tokens"]),
-                "--topk-steps",
+                "--probe-steps",
                 str(task_cfg["topk_steps"]),
+                "--probe-vocab-topk",
+                str(task_cfg["probe_vocab_topk"]),
             ]
             if int(args.limit) > 0:
                 command.extend(["--limit", str(args.limit)])
@@ -270,6 +257,8 @@ def run_normal_rrg_medgemma15(args: argparse.Namespace, config: dict[str, Any], 
                 str(build_cfg["max_lesion_tokens"]),
                 "--max-bg-global-tokens",
                 str(build_cfg["max_bg_global_tokens"]),
+                "--num-normal-prototypes",
+                str(build_cfg["num_normal_prototypes"]),
                 "--body-intensity-threshold",
                 str(build_cfg["body_intensity_threshold"]),
                 "--device",
@@ -295,8 +284,10 @@ def run_normal_rrg_medgemma15(args: argparse.Namespace, config: dict[str, Any], 
             str(bank_path),
             "--prompt-mode",
             str(eval_cfg["prompt_mode"]),
-            "--topk-steps",
+            "--probe-steps",
             str(eval_cfg["topk_steps"]),
+            "--probe-vocab-topk",
+            str(eval_cfg["probe_vocab_topk"]),
             "--max-new-tokens",
             str(eval_cfg["max_new_tokens"]),
             "--beta",
@@ -305,8 +296,6 @@ def run_normal_rrg_medgemma15(args: argparse.Namespace, config: dict[str, Any], 
             str(dataset_cfg["selector_k"]),
             "--seed-topk",
             str(dataset_cfg["seed_topk"]),
-            "--support-score-mode",
-            str(eval_cfg["support_score_mode"]),
             "--device",
             device,
         ]
@@ -342,12 +331,6 @@ def parse_backbone_setting(tag: str) -> dict[str, Any]:
                 out["selector_k"] = int(part[1:])
             elif re.fullmatch(r"s\d+", part):
                 out["seed_topk"] = int(part[1:])
-        if tag.endswith("hybrid_sum"):
-            out["support_score_mode"] = "hybrid_sum"
-        elif tag.endswith("hybrid_max"):
-            out["support_score_mode"] = "hybrid_max"
-        else:
-            out["support_score_mode"] = "shape_only"
         return out
     raise ValueError(f"Unsupported backbone setting tag: {tag}")
 
@@ -391,8 +374,6 @@ def run_backbone_rex(args: argparse.Namespace, config: dict[str, Any], env: dict
                 "beta": task_cfg["beta"],
                 "selector_k": task_cfg["selector_k"],
                 "seed_topk": task_cfg["seed_topk"],
-                "support_score_mode": task_cfg["support_score_mode"],
-                "retrieval_topm": task_cfg["retrieval_topm"],
             }
             task_bank_path = bank_root / str(task_cfg["bank_file"])
         else:
@@ -418,13 +399,9 @@ def run_backbone_rex(args: argparse.Namespace, config: dict[str, Any], env: dict
                 str(setting["selector_k"]),
                 "--seed-topk",
                 str(setting["seed_topk"]),
-                "--support-score-mode",
-                str(setting["support_score_mode"]),
                 "--max-new-tokens",
                 str(task_meta["max_new_tokens"]),
             ]
-            if "retrieval_topm" in setting:
-                command.extend(["--retrieval-topm", str(setting["retrieval_topm"])])
             if int(args.limit) > 0:
                 command.extend(["--limit", str(args.limit)])
             if model_path is not None:
@@ -435,7 +412,7 @@ def run_backbone_rex(args: argparse.Namespace, config: dict[str, Any], env: dict
             if task_meta["runner_cmd"] == "eval-vqa":
                 command.extend(["--tasks", str(task_meta["task"])])
             else:
-                command.extend(["--prompt-mode", "benchmark_raw", "--topk-steps", "3"])
+                command.extend(["--prompt-mode", "benchmark_raw", "--probe-steps", "3", "--probe-vocab-topk", "50"])
             run_command(command, env, args.dry_run)
             if task_meta["runner_cmd"] == "eval-vqa" and task_meta["task"] == "multiselect":
                 score_single_select(
@@ -445,6 +422,7 @@ def run_backbone_rex(args: argparse.Namespace, config: dict[str, Any], env: dict
                     predictions_path=out_dir / "multiselect_answers.jsonl",
                     output_dir=out_dir,
                     model_kind=args.model_kind,
+                    limit=int(args.limit),
                     env=env,
                     dry_run=args.dry_run,
                 )

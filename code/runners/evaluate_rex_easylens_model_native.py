@@ -16,21 +16,21 @@ from typing import Any, Iterable
 import numpy as np
 import torch
 import torch.nn.functional as F
-from PIL import Image
+from PIL import Image, ImageDraw
 
 from evaluate_rex_report_baseline_token_probs import (
-    DENIAL_PHRASES,
-    LESION_PHRASES,
     HuluRunner,
     LingshuRunner,
     LlavaRunner,
     MedGemmaRunner,
     RadFMRunner,
-    analyze_scores,
-    candidate_first_token_info,
     get_tokenizer,
-    load_records as load_report_records,
-    summarize as summarize_report_probs,
+)
+from evaluate_rex_report_medgemma import load_report_records
+from analyze_rex_report_lesion_token_probs import (
+    analyze_generation_scores,
+    summarize_probabilities,
+    target_token_info,
 )
 from evaluate_server_vlm_microbench import (
     canonicalize_loc_answer,
@@ -43,7 +43,15 @@ from evaluate_server_vlm_microbench import (
     write_jsonl,
 )
 from microbench_prototype_utils import load_benchmark_image, load_benchmark_manifest, parse_grid_cells
-from prototype_guided_fundus import extract_layer_tokens, patched_vision_layer_tokens, run_kmeans
+from micro_lesion_vqa_utils import load_nifti_array, project_mask_to_native_canvas
+from prototype_guided_fundus import (
+    extract_layer_tokens,
+    patch_overlap_from_mask,
+    patched_vision_layer_tokens,
+    resize_image,
+    run_kmeans,
+)
+from easylens_core import EasyLensConfig, compute_easylens, load_easylens_bank
 
 
 LLAVA_MODEL = Path("/path/to/llava-med-v1.5-mistral-7b")
@@ -84,6 +92,9 @@ class EasyLensParams:
     gap_score_weight: float
     retrieval_topm: int
     retrieval_temperature: float
+    prototype_topm: int
+    counterfactual_temperature: float
+    amplifier_threshold: float
     query_chunk: int
     bg_bank_chunk: int
     similarity_chunk: int
@@ -194,10 +205,27 @@ def dynamic_grid_labels(grid_size: int, token_grid: int) -> np.ndarray:
     return np.asarray(labels, dtype=object)
 
 
-def build_supervision_masks(row: dict[str, str], image: Image.Image, token_grid: int, body_threshold: float) -> tuple[np.ndarray, np.ndarray]:
-    mask_text = str(row.get("mask_path") or row.get("mask") or "").strip()
+def build_supervision_masks(
+    row: dict[str, str],
+    image: Image.Image,
+    token_grid: int,
+    body_threshold: float,
+    allow_grid_fallback: bool = False,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Build token-level lesion/background masks from an actual 2D lesion mask.
+
+    Equation-literal EasyBank construction requires pixel masks. Coarse VQA grid
+    answers are not equivalent supervision, so they are accepted only through
+    an explicit compatibility flag and never by the official builder default.
+    """
+
+    mask_text = str(row.get("mask_path") or row.get("mask") or row.get("raw_mask") or "").strip()
     if mask_text:
         mask_path = Path(mask_text)
+        if mask_path.name.endswith((".nii", ".nii.gz")):
+            raise ValueError(
+                f"{mask_path} is a volume mask; export its aligned 2D slice before schema-v2 bank construction."
+            )
         mask = Image.open(mask_path).convert("L")
         mask_small = mask.resize((token_grid, token_grid), Image.Resampling.BILINEAR)
         lesion = (np.asarray(mask_small, dtype=np.float32).reshape(-1) > 0.0)
@@ -207,6 +235,8 @@ def build_supervision_masks(row: dict[str, str], image: Image.Image, token_grid:
             background = ~lesion
         return lesion.astype(bool), background.astype(bool)
 
+    if not allow_grid_fallback:
+        raise ValueError("No pixel-level lesion mask found; coarse grid labels are disabled for schema-v2 banks.")
     grid_size = int(float(row.get("grid_size", 3) or 3))
     cells = parse_grid_cells(row)
     labels = dynamic_grid_labels(grid_size=grid_size, token_grid=token_grid)
@@ -218,17 +248,161 @@ def build_supervision_masks(row: dict[str, str], image: Image.Image, token_grid:
     return lesion.astype(bool), background.astype(bool)
 
 
-def dilate_binary(window: np.ndarray) -> np.ndarray:
-    padded = np.pad(window.astype(bool), 1, mode="constant", constant_values=False)
-    out = np.zeros_like(window, dtype=bool)
-    height, width = window.shape
-    for dr in (-1, 0, 1):
-        for dc in (-1, 0, 1):
-            out |= padded[1 + dr : 1 + dr + height, 1 + dc : 1 + dc + width]
-    return out
+def build_rex_volume_supervision_masks(
+    row: dict[str, str],
+    image: Image.Image,
+    token_grid: int,
+    raw_root: Path,
+    mask_overlap_threshold: float,
+    body_threshold: float,
+    cached_case_name: str | None,
+    cached_segmentation: np.ndarray | None,
+) -> tuple[np.ndarray, np.ndarray, str, np.ndarray]:
+    """Project an authorized ReX 4D segmentation into the model's patch grid.
+
+    ReX stores one segmentation channel per finding. The construction manifest
+    identifies the relevant channels, source slice, body crop, and native-canvas
+    scaling. This function recreates that exact projection before calculating
+    token-level occupancy, while caching consecutive slices from the same case.
+    """
+
+    required = ("case_name", "slice_index", "target_finding_keys_json", "body_bbox_xyxy")
+    if any(row.get(key) in {None, ""} for key in required):
+        raise ValueError(f"ReX volume supervision requires fields: {required}")
+    case_name = str(row["case_name"])
+    segmentation = cached_segmentation if cached_case_name == case_name else None
+    if segmentation is None:
+        segmentation_path = raw_root / "segmentations" / case_name
+        if not segmentation_path.exists():
+            raise FileNotFoundError(f"Missing ReX segmentation: {segmentation_path}")
+        segmentation = load_nifti_array(segmentation_path)
+    if segmentation.ndim != 4:
+        raise ValueError(f"Expected a 4D ReX segmentation for {case_name}, got {segmentation.shape}")
+
+    slice_index = int(float(row["slice_index"]))
+    finding_indices = [int(value) for value in json.loads(str(row["target_finding_keys_json"]))]
+    union_mask = np.zeros(segmentation.shape[1:3], dtype=np.uint8)
+    for finding_index in finding_indices:
+        if 0 <= finding_index < segmentation.shape[0]:
+            union_mask |= np.asarray(segmentation[finding_index, :, :, slice_index] > 0, dtype=np.uint8)
+    body_bbox = tuple(int(value) for value in json.loads(str(row["body_bbox_xyxy"])))
+    target_size = int(float(row.get("target_size", 512) or 512))
+    upscale = str(row.get("native_upscale", "")).strip().lower() in {"1", "true", "yes"}
+    mask_canvas = project_mask_to_native_canvas(union_mask, body_bbox, target_size=target_size, upscale=upscale)
+    mask_image = Image.fromarray((mask_canvas > 0).astype(np.uint8) * 255, mode="L")
+    mask_resized = resize_image(mask_image, mode=Image.Resampling.NEAREST)
+    overlap = patch_overlap_from_mask(mask_resized, int(token_grid))
+    lesion = overlap > float(mask_overlap_threshold)
+    image_resized = resize_image(image, mode=Image.Resampling.BILINEAR)
+    active = dynamic_patch_mean_intensity(image_resized, int(token_grid)) > float(body_threshold)
+    background = (~lesion) & active
+    if not np.any(background):
+        background = ~lesion
+    return lesion.astype(bool), background.astype(bool), case_name, segmentation
 
 
-def build_local_shape_template(mask_flat: np.ndarray, center_idx: int, grid_side: int, radius: int, ring_weight: float, ring_mode: str) -> np.ndarray:
+def _project_binary_mask_to_tokens(
+    mask: np.ndarray,
+    row: dict[str, str],
+    image: Image.Image,
+    token_grid: int,
+    mask_overlap_threshold: float,
+    body_threshold: float,
+) -> tuple[np.ndarray, np.ndarray]:
+    body_bbox = tuple(int(float(value)) for value in json.loads(str(row["body_bbox_xyxy"])))
+    target_size = int(float(row.get("target_size", 512) or 512))
+    upscale = str(row.get("native_upscale", "")).strip().lower() in {"1", "true", "yes"}
+    mask_canvas = project_mask_to_native_canvas(mask, body_bbox, target_size=target_size, upscale=upscale)
+    mask_image = Image.fromarray((mask_canvas > 0).astype(np.uint8) * 255, mode="L")
+    mask_resized = resize_image(mask_image, mode=Image.Resampling.NEAREST)
+    overlap = patch_overlap_from_mask(mask_resized, int(token_grid))
+    lesion = overlap > float(mask_overlap_threshold)
+    image_resized = resize_image(image, mode=Image.Resampling.BILINEAR)
+    active = dynamic_patch_mean_intensity(image_resized, int(token_grid)) > float(body_threshold)
+    background = (~lesion) & active
+    if not np.any(background):
+        background = ~lesion
+    return lesion.astype(bool), background.astype(bool)
+
+
+def build_volume_path_supervision_masks(
+    row: dict[str, str],
+    image: Image.Image,
+    token_grid: int,
+    mask_overlap_threshold: float,
+    body_threshold: float,
+    cached_mask_path: str | None,
+    cached_mask_volume: np.ndarray | None,
+) -> tuple[np.ndarray, np.ndarray, str, np.ndarray]:
+    """Project a 3D NIfTI lesion mask referenced directly by a manifest row."""
+
+    mask_path = str(row.get("raw_mask") or row.get("mask_path") or row.get("mask") or "").strip()
+    if not mask_path or not mask_path.endswith((".nii", ".nii.gz")):
+        raise ValueError("Volume-mask supervision requires raw_mask/mask_path pointing to NIfTI data.")
+    volume = cached_mask_volume if cached_mask_path == mask_path else None
+    if volume is None:
+        volume = load_nifti_array(Path(mask_path))
+    if volume.ndim != 3:
+        raise ValueError(f"Expected a 3D volume mask, got {volume.shape}: {mask_path}")
+    slice_index = int(float(row["slice_index"]))
+    mask = np.asarray(volume[:, :, slice_index] > 0, dtype=np.uint8)
+    lesion, background = _project_binary_mask_to_tokens(
+        mask,
+        row,
+        image,
+        token_grid,
+        mask_overlap_threshold,
+        body_threshold,
+    )
+    return lesion, background, mask_path, volume
+
+
+def build_lidc_annotation_supervision_masks(
+    row: dict[str, str],
+    image: Image.Image,
+    token_grid: int,
+    source_rows: dict[str, dict[str, str]],
+    mask_overlap_threshold: float,
+    body_threshold: float,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Rasterize the LIDC annotation polygons referenced by an aggregate row."""
+
+    source_ids = [str(value) for value in json.loads(str(row.get("source_sample_ids_json") or "[]"))]
+    if not source_ids:
+        raise ValueError("LIDC supervision requires source_sample_ids_json.")
+    target_size = int(float(row.get("target_size", 512) or 512))
+    mask_image = Image.new("L", (target_size, target_size), color=0)
+    draw = ImageDraw.Draw(mask_image)
+    matched = 0
+    for source_id in source_ids:
+        source = source_rows.get(source_id)
+        if source is None:
+            continue
+        points = [tuple(int(value) for value in point) for point in json.loads(source["points_json"])]
+        if not points:
+            continue
+        if str(source.get("selection_type", "")).lower() == "polygon" and len(points) >= 3:
+            draw.polygon(points, fill=255)
+        else:
+            radius = int(float(source.get("point_radius_px", 5) or 5))
+            for x, y in points:
+                draw.ellipse((x - radius, y - radius, x + radius, y + radius), fill=255)
+        matched += 1
+    if matched == 0:
+        raise ValueError(f"No LIDC source annotations matched: {source_ids}")
+    return _project_binary_mask_to_tokens(
+        np.asarray(mask_image, dtype=np.uint8),
+        row,
+        image,
+        token_grid,
+        mask_overlap_threshold,
+        body_threshold,
+    )
+
+
+def build_local_morphology_window(mask_flat: np.ndarray, center_idx: int, grid_side: int, radius: int) -> np.ndarray:
+    """Extract a binary lesion-occupancy window centered on one lesion patch."""
+
     radius = max(0, int(radius))
     size = 2 * radius + 1
     mask_grid = mask_flat.reshape(grid_side, grid_side).astype(bool)
@@ -244,10 +418,7 @@ def build_local_shape_template(mask_flat: np.ndarray, center_idx: int, grid_side
     template_pos = (template_pos > 0).astype(np.float32)
     if template_pos[radius, radius] <= 0:
         template_pos[radius, radius] = 1.0
-    ring = dilate_binary(template_pos > 0) & ~(template_pos > 0)
-    if ring_mode == "boost":
-        return (template_pos + float(ring_weight) * ring.astype(np.float32)).astype(np.float32)
-    return (template_pos - float(ring_weight) * ring.astype(np.float32)).astype(np.float32)
+    return template_pos
 
 
 def robust_standardize(x: torch.Tensor) -> torch.Tensor:
@@ -482,24 +653,26 @@ def compute_easylens_tokens(
     params: EasyLensParams,
     alpha_override: torch.Tensor | None = None,
 ) -> tuple[torch.Tensor, torch.Tensor, dict[str, Any]]:
-    if int(source_tokens.shape[0]) != int(bank["grid_side"]) ** 2:
-        raise ValueError(f"Token-grid mismatch: got {source_tokens.shape[0]} tokens, bank grid={bank['grid_side']}")
-    if int(source_tokens.shape[-1]) != int(bank["feature_dim"]):
-        raise ValueError(f"Feature dim mismatch: got {source_tokens.shape[-1]}, bank dim={bank['feature_dim']}")
+    if alpha_override is None and params.selector_override == "easytag":
+        config = EasyLensConfig(
+            selector_k=int(params.selector_k),
+            seed_topk=int(params.seed_topk),
+            prototype_topm=int(params.prototype_topm),
+            counterfactual_temperature=float(params.counterfactual_temperature),
+            morphology_weight=float(params.shape_weight),
+            amplifier_threshold=float(params.amplifier_threshold),
+            similarity_chunk=int(params.similarity_chunk),
+        )
+        return compute_easylens(source_tokens, bank, config)
+
     token_norm = F.normalize(source_tokens.float(), dim=-1)
     cluster_members = build_cluster_member_lists(bank)
     lesion_sim, best_member_idx, proto_margin = route_to_cluster_members(token_norm, bank, cluster_members, int(params.query_chunk))
     background_sim = compute_position_background_maxsim(token_norm, bank, int(params.bg_bank_chunk))
-    gap = lesion_sim - background_sim
-    score = robust_standardize(gap) + float(params.margin_weight) * robust_standardize(proto_margin)
-    heatmap = build_shape_heatmap(score, lesion_sim, best_member_idx, bank, params)
-    support_score = build_support_score(score, heatmap, lesion_sim, background_sim, params)
+    score = robust_standardize(lesion_sim - background_sim) + float(params.margin_weight) * robust_standardize(proto_margin)
     if alpha_override is None and params.selector_override == "mlp":
         alpha = compute_mlp_selector_alpha(source_tokens, bank, params).to(device=source_tokens.device)
         selector_used = "mlp"
-    elif alpha_override is None:
-        alpha = select_support(support_score, params, int(bank["grid_side"])).to(device=source_tokens.device)
-        selector_used = "easytag"
     else:
         alpha = alpha_override.to(device=source_tokens.device, dtype=torch.float32)
         selector_used = str(params.selector_override)
@@ -510,8 +683,6 @@ def compute_easylens_tokens(
         "selected_patch_indices": [int(x) for x in torch.nonzero(alpha > 0, as_tuple=False).view(-1).tolist()],
         "score_max": float(score.max().item()),
         "score_mean": float(score.mean().item()),
-        "heatmap_max": float(heatmap.max().item()),
-        "support_score_max": float(support_score.max().item()),
         "lesion_sim_max": float(lesion_sim.max().item()),
         "background_sim_max": float(background_sim.max().item()),
     }
@@ -529,28 +700,11 @@ def build_gt_alpha(row: dict[str, Any], image: Image.Image, grid_side: int, devi
 
 
 def load_native_bank(path: Path, device: torch.device) -> dict[str, Any]:
-    raw = torch.load(path, map_location="cpu", weights_only=False)
-    bank: dict[str, Any] = dict(raw)
-    if "grid_side" not in bank:
-        if "background_position_counts" in bank:
-            bank["grid_side"] = int(math.isqrt(len(bank["background_position_counts"])))
-        else:
-            bank["grid_side"] = int(math.isqrt(int(np.asarray(bank["lesion_patch_positions"]).max()) + 1))
-    if "feature_dim" not in bank:
-        bank["feature_dim"] = int(np.asarray(bank["lesion_bank"]).shape[-1])
-    for key in ["lesion_bank", "lesion_prototypes", "lesion_shape_templates", "background_global_bank", "background_position_bank"]:
-        bank[key] = torch.as_tensor(bank[key], dtype=torch.float32, device=device)
-    bank["lesion_bank_norm"] = F.normalize(bank["lesion_bank"], dim=-1)
-    bank["lesion_prototypes_norm"] = F.normalize(bank["lesion_prototypes"], dim=-1)
-    bank["background_global_bank_norm"] = F.normalize(bank["background_global_bank"], dim=-1)
-    if bank["background_position_bank"].numel() > 0:
-        bank["background_position_bank_norm"] = F.normalize(bank["background_position_bank"], dim=-1)
-    else:
-        bank["background_position_bank_norm"] = bank["background_position_bank"]
-    bank["background_position_counts"] = torch.as_tensor(bank["background_position_counts"], dtype=torch.int64, device=device)
-    bank["background_position_offsets"] = torch.as_tensor(bank["background_position_offsets"], dtype=torch.int64, device=device)
-    bank["cluster_member_order"] = torch.as_tensor(bank["lesion_cluster_member_order"], dtype=torch.int64, device=device)
-    bank["cluster_offsets"] = torch.as_tensor(bank["lesion_cluster_offsets"], dtype=torch.int64, device=device)
+    bank = load_easylens_bank(path, device)
+    bank["background_global_bank_norm"] = bank["normal_global_bank_norm"]
+    bank["background_position_bank_norm"] = bank["normal_position_bank_norm"]
+    bank["background_position_counts"] = bank["normal_position_counts"]
+    bank["background_position_offsets"] = bank["normal_position_offsets"]
     return bank
 
 
@@ -758,7 +912,6 @@ def capture_lingshu_vision_features(runner: LingshuRunner, image: Image.Image) -
 
     handle = module.register_forward_hook(hook)
     try:
-        # Keep this path aligned with LingshuRunner.generate_with_scores.
         messages = [{"role": "user", "content": [{"type": "image", "image": image}, {"type": "text", "text": "Describe the image."}]}]
         text = runner.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
         inputs = runner.processor(text=[text], images=[image], padding=True, return_tensors="pt")
@@ -936,7 +1089,12 @@ def easylens_context(
                 raise ValueError("GT mask selector requires a manifest row.")
             alpha_override = build_gt_alpha(row, image, int(grid_side), runner.device)
         ref, alpha, meta = compute_easylens_tokens(source_tokens.to(runner.device), bank, params, alpha_override=alpha_override)
-        intervention_mode = "token_replace" if params.amplifier_mode == "token_replace" else "token_delta"
+        if params.amplifier_mode == "token_replace":
+            intervention_mode = "token_replace"
+        elif params.selector_override == "easytag":
+            intervention_mode = "paper_residual"
+        else:
+            intervention_mode = "token_delta"
         with patched_vision_layer_tokens(runner.model, int(vision_layer), alpha, float(params.beta), intervention_mode, ref):
             yield meta
         return
@@ -944,21 +1102,39 @@ def easylens_context(
 
 
 def build_bank(args: argparse.Namespace) -> None:
+    """Construct schema-v2 EasyBank from the components in Appendix A.2.
+
+    Each image contributes one normalized mean lesion embedding to lesion
+    prototype clustering, preventing large masks from dominating. Patch-level
+    lesion supports inherit their source image's cluster assignment. Local
+    lesion masks are averaged into prototype-specific morphology priors, while
+    normal patches are clustered independently at every spatial location.
+    """
+
     ensure_dir(args.output_path.parent)
     rng = np.random.default_rng(int(args.seed))
     runner = build_runner(args.model_kind, args.model_path, args.device)
     rows = load_benchmark_manifest(args.benchmark_dir)
     if args.limit > 0:
         rows = rows[: args.limit]
+    lidc_source_rows: dict[str, dict[str, str]] = {}
+    if args.lidc_source_manifest is not None:
+        with args.lidc_source_manifest.open("r", encoding="utf-8-sig", newline="") as handle:
+            lidc_source_rows = {str(row["sample_id"]): row for row in csv.DictReader(handle)}
     lesion_tokens: list[np.ndarray] = []
     lesion_templates: list[np.ndarray] = []
     lesion_positions: list[int] = []
     lesion_sample_ids: list[str] = []
+    lesion_image_means: list[np.ndarray] = []
     background_global: list[np.ndarray] = []
     background_by_position: list[list[np.ndarray]] | None = None
     used_sample_ids: list[str] = []
     grid_side_seen: int | None = None
     feature_dim_seen: int | None = None
+    cached_case_name: str | None = None
+    cached_segmentation: np.ndarray | None = None
+    cached_mask_path: str | None = None
+    cached_mask_volume: np.ndarray | None = None
 
     for idx, row in enumerate(rows, start=1):
         sample_id = str(row.get("sample_id") or row.get("id") or idx)
@@ -976,22 +1152,60 @@ def build_bank(args: argparse.Namespace) -> None:
                 background_by_position = [[] for _ in range(grid_side_seen * grid_side_seen)]
             if grid_side_seen != int(grid_side) or feature_dim_seen != int(patch_np.shape[-1]):
                 raise ValueError(f"Feature shape changed: grid={grid_side}, dim={patch_np.shape[-1]}")
-            lesion_mask, background_mask = build_supervision_masks(row, image, int(grid_side), float(args.body_intensity_threshold))
+            if args.raw_root is not None:
+                lesion_mask, background_mask, cached_case_name, cached_segmentation = build_rex_volume_supervision_masks(
+                    row,
+                    image,
+                    int(grid_side),
+                    args.raw_root,
+                    float(args.mask_overlap_threshold),
+                    float(args.body_intensity_threshold),
+                    cached_case_name,
+                    cached_segmentation,
+                )
+            elif args.lidc_source_manifest is not None:
+                lesion_mask, background_mask = build_lidc_annotation_supervision_masks(
+                    row,
+                    image,
+                    int(grid_side),
+                    lidc_source_rows,
+                    float(args.mask_overlap_threshold),
+                    float(args.body_intensity_threshold),
+                )
+            elif str(row.get("raw_mask") or row.get("mask_path") or row.get("mask") or "").endswith((".nii", ".nii.gz")):
+                lesion_mask, background_mask, cached_mask_path, cached_mask_volume = build_volume_path_supervision_masks(
+                    row,
+                    image,
+                    int(grid_side),
+                    float(args.mask_overlap_threshold),
+                    float(args.body_intensity_threshold),
+                    cached_mask_path,
+                    cached_mask_volume,
+                )
+            else:
+                lesion_mask, background_mask = build_supervision_masks(
+                    row,
+                    image,
+                    int(grid_side),
+                    float(args.body_intensity_threshold),
+                    allow_grid_fallback=bool(args.allow_grid_mask_fallback),
+                )
             if not np.any(lesion_mask) or not np.any(background_mask):
                 print(f"[skip] {sample_id}: empty lesion/background mask", flush=True)
                 continue
             lesion_idx = np.flatnonzero(lesion_mask)
+            lesion_mean = patch_np[lesion_idx].mean(axis=0)
+            lesion_mean /= max(float(np.linalg.norm(lesion_mean)), 1e-8)
+            lesion_image_means.append(lesion_mean.astype(np.float32, copy=False))
             lesion_keep = lesion_idx[sample_indices(len(lesion_idx), int(args.max_lesion_per_image), rng)]
             for patch_idx in sorted(int(x) for x in lesion_keep.tolist()):
                 lesion_tokens.append(patch_np[patch_idx].astype(np.float32, copy=False))
                 lesion_templates.append(
-                    build_local_shape_template(
+                    build_local_morphology_window(
                         lesion_mask,
                         patch_idx,
                         int(grid_side),
                         int(args.shape_radius),
-                        float(args.ring_weight),
-                        args.ring_mode,
                     )
                 )
                 lesion_positions.append(patch_idx)
@@ -1015,36 +1229,61 @@ def build_bank(args: argparse.Namespace) -> None:
     if not lesion_tokens or not background_global or background_by_position is None or grid_side_seen is None or feature_dim_seen is None:
         raise ValueError("No usable model-native bank tokens were collected.")
 
+    image_mean_bank = np.stack(lesion_image_means, axis=0).astype(np.float32, copy=False)
+    num_centers = min(int(args.num_lesion_prototypes), int(len(image_mean_bank)))
+    lesion_prototypes = run_kmeans(image_mean_bank, num_centers, int(args.seed), int(args.kmeans_iters))
+    image_cluster_ids = np.argmax(image_mean_bank @ lesion_prototypes.T, axis=1).astype(np.int16)
+    sample_cluster = dict(zip(used_sample_ids, image_cluster_ids.tolist()))
+
     lesion_bank = np.stack(lesion_tokens, axis=0).astype(np.float32, copy=False)
+    lesion_bank /= np.clip(np.linalg.norm(lesion_bank, axis=1, keepdims=True), 1e-8, None)
     keep = sample_indices(len(lesion_bank), int(args.max_lesion_tokens), rng)
     lesion_bank = lesion_bank[keep]
     lesion_templates_arr = np.stack(lesion_templates, axis=0).astype(np.float16, copy=False)[keep]
     lesion_positions_arr = np.asarray(lesion_positions, dtype=np.int32)[keep]
     lesion_sample_ids_keep = np.asarray(lesion_sample_ids, dtype=object)[keep].tolist()
-    num_centers = min(int(args.num_lesion_prototypes), int(len(lesion_bank)))
-    lesion_prototypes = run_kmeans(lesion_bank.astype(np.float32, copy=False), num_centers, int(args.seed), int(args.kmeans_iters))
-    lesion_bank_norm = lesion_bank / np.clip(np.linalg.norm(lesion_bank, axis=1, keepdims=True), 1e-6, None)
-    proto_norm = lesion_prototypes / np.clip(np.linalg.norm(lesion_prototypes, axis=1, keepdims=True), 1e-6, None)
-    cluster_ids = np.argmax(lesion_bank_norm @ proto_norm.T, axis=1).astype(np.int16)
+    cluster_ids = np.asarray([sample_cluster[sample_id] for sample_id in lesion_sample_ids_keep], dtype=np.int16)
     member_order = np.argsort(cluster_ids, kind="stable").astype(np.int32)
     member_ids = cluster_ids[member_order]
     offsets = np.zeros(num_centers + 1, dtype=np.int32)
     for cluster_idx in range(num_centers):
         offsets[cluster_idx + 1] = offsets[cluster_idx] + int((member_ids == cluster_idx).sum())
 
-    bg_global = np.stack(background_global, axis=0).astype(np.float16, copy=False)
-    bg_keep = sample_indices(len(bg_global), int(args.max_bg_global_tokens), rng)
-    bg_global = bg_global[bg_keep]
+    morphology_priors: list[np.ndarray] = []
+    for cluster_idx in range(num_centers):
+        rows_for_cluster = lesion_templates_arr[cluster_ids == cluster_idx].astype(np.float32)
+        prior = rows_for_cluster.mean(axis=0) if len(rows_for_cluster) else np.zeros_like(lesion_templates_arr[0], dtype=np.float32)
+        maximum = float(prior.max())
+        if maximum > 0:
+            prior /= maximum
+        morphology_priors.append(np.clip(prior, 0.0, 1.0))
+    morphology_priors_arr = np.stack(morphology_priors, axis=0).astype(np.float16)
+
+    bg_global_samples = np.stack(background_global, axis=0).astype(np.float32, copy=False)
+    bg_keep = sample_indices(len(bg_global_samples), int(args.max_bg_global_tokens), rng)
+    bg_global_samples = bg_global_samples[bg_keep]
+    bg_global = run_kmeans(
+        bg_global_samples,
+        min(int(args.num_normal_prototypes), len(bg_global_samples)),
+        int(args.seed),
+        int(args.kmeans_iters),
+    ).astype(np.float16)
     position_counts = np.zeros(grid_side_seen * grid_side_seen, dtype=np.int32)
     parts: list[np.ndarray] = []
     for pos_idx, rows_at_pos in enumerate(background_by_position):
         if not rows_at_pos:
             continue
-        arr = np.stack(rows_at_pos, axis=0).astype(np.float16, copy=False)
+        arr = np.stack(rows_at_pos, axis=0).astype(np.float32, copy=False)
         if int(args.max_bg_per_position) > 0:
             arr = arr[sample_indices(len(arr), int(args.max_bg_per_position), rng)]
-        position_counts[pos_idx] = int(len(arr))
-        parts.append(arr)
+        prototypes = run_kmeans(
+            arr,
+            min(int(args.num_normal_prototypes), len(arr)),
+            int(args.seed) + pos_idx,
+            int(args.kmeans_iters),
+        ).astype(np.float16)
+        position_counts[pos_idx] = int(len(prototypes))
+        parts.append(prototypes)
     position_offsets = np.zeros(grid_side_seen * grid_side_seen + 1, dtype=np.int64)
     position_offsets[1:] = np.cumsum(position_counts, dtype=np.int64)
     if parts:
@@ -1053,9 +1292,11 @@ def build_bank(args: argparse.Namespace) -> None:
         bg_position = np.zeros((0, feature_dim_seen), dtype=np.float16)
 
     bank = {
+        "schema_version": 2,
+        "alignment": "equation_literal_v3",
         "model_kind": args.model_kind,
-        "model_path": str(args.model_path) if args.model_path else None,
-        "benchmark_dir": str(args.benchmark_dir),
+        "model_identifier": args.model_path.name if args.model_path else None,
+        "construction_split": args.benchmark_dir.name,
         "feature_site": "medgemma_vision_layer" if args.model_kind in {"medgemma", "medgemma1.5"} else "pre_projector_or_vision_encoder",
         "vision_layer": int(args.vision_layer),
         "grid_side": int(grid_side_seen),
@@ -1069,7 +1310,7 @@ def build_bank(args: argparse.Namespace) -> None:
         "lesion_cluster_ids": cluster_ids,
         "lesion_cluster_member_order": member_order,
         "lesion_cluster_offsets": offsets,
-        "lesion_shape_templates": lesion_templates_arr,
+        "morphology_priors": morphology_priors_arr,
         "lesion_patch_positions": lesion_positions_arr,
         "lesion_sample_ids": lesion_sample_ids_keep,
         "background_global_bank": bg_global,
@@ -1078,8 +1319,19 @@ def build_bank(args: argparse.Namespace) -> None:
         "background_position_offsets": position_offsets,
         "body_intensity_threshold": float(args.body_intensity_threshold),
         "shape_radius": int(args.shape_radius),
-        "ring_weight": float(args.ring_weight),
-        "ring_mode": args.ring_mode,
+        "num_normal_prototypes": int(args.num_normal_prototypes),
+        "mask_source": (
+            "rex_volume_projection"
+            if args.raw_root is not None
+            else "lidc_annotation_projection"
+            if args.lidc_source_manifest is not None
+            else "volume_mask_projection"
+            if cached_mask_path is not None
+            else "pixel_mask"
+            if not args.allow_grid_mask_fallback
+            else "pixel_mask_or_explicit_grid_compatibility"
+        ),
+        "mask_overlap_threshold": float(args.mask_overlap_threshold),
         "seed": int(args.seed),
         "kmeans_iters": int(args.kmeans_iters),
     }
@@ -1105,6 +1357,9 @@ def parse_params(args: argparse.Namespace) -> EasyLensParams:
         gap_score_weight=float(args.gap_score_weight),
         retrieval_topm=int(args.retrieval_topm),
         retrieval_temperature=float(args.retrieval_temperature),
+        prototype_topm=int(args.prototype_topm),
+        counterfactual_temperature=float(args.counterfactual_temperature),
+        amplifier_threshold=float(args.amplifier_threshold),
         query_chunk=int(args.prototype_query_chunk),
         bg_bank_chunk=int(args.bg_bank_chunk),
         similarity_chunk=int(args.similarity_chunk),
@@ -1179,14 +1434,18 @@ def eval_vqa(args: argparse.Namespace) -> None:
 def eval_report(args: argparse.Namespace) -> None:
     ensure_dir(args.output_dir)
     params = parse_params(args)
+    records = load_report_records(args.benchmark_dir, args.prompt_mode, limit=(args.limit if args.limit > 0 else None))
+    missing_targets = [record.sample_id for record in records if not record.target_description.strip()]
+    if missing_targets:
+        raise ValueError(
+            f"Missing target_description for {len(missing_targets)} report samples. "
+            "Prepare authorized local metadata with code/tools/prepare_rex_report_targets.py."
+        )
     runner = build_runner(args.model_kind, args.model_path, args.device)
     bank = load_native_bank(args.bank_path, runner_device(runner)) if args.bank_path else None
     bank = maybe_load_selector_checkpoint(bank, params, runner_device(runner))
     manifest = safe_load_sample_manifest(args.benchmark_dir)
-    records = load_report_records(args.benchmark_dir, args.prompt_mode, limit=(args.limit if args.limit > 0 else None))
     tokenizer = get_tokenizer(runner.tokenizer)
-    lesion_ids, lesion_phrase_map, lesion_token_names = candidate_first_token_info(tokenizer, LESION_PHRASES, min_alpha_len=3)
-    denial_ids, denial_phrase_map, denial_token_names = candidate_first_token_info(tokenizer, DENIAL_PHRASES, min_alpha_len=2)
     write_json(
         args.output_dir / "run_config.json",
         {
@@ -1197,22 +1456,20 @@ def eval_report(args: argparse.Namespace) -> None:
             "bank_path": str(args.bank_path) if args.bank_path else None,
             "prompt_mode": args.prompt_mode,
             "max_new_tokens": int(args.max_new_tokens),
-            "topk_steps": int(args.topk_steps),
+            "probe_steps": int(args.probe_steps),
+            "probe_vocab_topk": int(args.probe_vocab_topk),
             "selector_override": args.selector_override,
             "amplifier_mode": args.amplifier_mode,
             "selector_ckpt": str(args.selector_ckpt) if args.selector_ckpt else None,
-            "lesion_phrases": lesion_phrase_map,
-            "lesion_first_token_ids": lesion_ids,
-            "lesion_first_tokens": {str(k): v for k, v in lesion_token_names.items()},
-            "denial_phrases": denial_phrase_map,
-            "denial_first_token_ids": denial_ids,
-            "denial_first_tokens": {str(k): v for k, v in denial_token_names.items()},
+            "bank_alignment": bank["alignment"] if bank is not None else None,
+            "bank_schema_version": int(bank["schema_version"]) if bank is not None else None,
         },
     )
     pred_rows: list[dict[str, Any]] = []
     prob_rows: list[dict[str, Any]] = []
     runtime_rows: list[dict[str, Any]] = []
     for idx, rec in enumerate(records, start=1):
+        target_ids, target_words, target_token_names = target_token_info(tokenizer, rec.target_description)
         image = Image.open(rec.image_path).convert("RGB")
         start = time.perf_counter()
         meta: dict[str, Any] = {}
@@ -1221,7 +1478,15 @@ def eval_report(args: argparse.Namespace) -> None:
             with easylens_context(runner, args.model_kind, image, rec.image_path, bank, params, int(args.vision_layer), row=row) as ctx_meta:
                 meta = ctx_meta
                 text, outputs, generated = runner.generate_with_scores(image, rec.image_path, rec.prompt, int(args.max_new_tokens))
-            prob_meta = analyze_scores(outputs, generated, tokenizer, lesion_ids, denial_ids, int(args.topk_steps))
+            prob_meta = analyze_generation_scores(
+                outputs,
+                0,
+                tokenizer,
+                target_ids,
+                int(args.probe_steps),
+                int(args.probe_vocab_topk),
+                generated_sequence=generated,
+            )
             error = ""
         except Exception as exc:
             text = ""
@@ -1232,6 +1497,10 @@ def eval_report(args: argparse.Namespace) -> None:
             "sample_id": rec.sample_id,
             "image": rec.image_rel,
             "prompt": rec.prompt,
+            "target_description": rec.target_description,
+            "target_words": target_words,
+            "target_token_ids": target_ids,
+            "target_tokens": {str(key): value for key, value in target_token_names.items()},
             "report_text": text,
             "error": error,
             "elapsed_sec": elapsed,
@@ -1247,7 +1516,7 @@ def eval_report(args: argparse.Namespace) -> None:
         "benchmark_dir": str(args.benchmark_dir),
         "model_kind": args.model_kind,
         "with_easylens": bool(bank),
-        "metrics": summarize_report_probs(metric_rows),
+        "metrics": summarize_probabilities(metric_rows),
     }
     write_jsonl(args.output_dir / "report_answers.jsonl", pred_rows)
     write_jsonl(args.output_dir / "lesion_token_prob_per_sample.jsonl", prob_rows)
@@ -1294,6 +1563,7 @@ def parse_args() -> argparse.Namespace:
     bank.add_argument("--benchmark-dir", type=Path, required=True)
     bank.add_argument("--output-path", type=Path, required=True)
     bank.add_argument("--num-lesion-prototypes", type=int, default=8)
+    bank.add_argument("--num-normal-prototypes", type=int, default=8)
     bank.add_argument("--max-lesion-per-image", type=int, default=256)
     bank.add_argument("--max-bg-per-image", type=int, default=0)
     bank.add_argument("--max-lesion-tokens", type=int, default=30000)
@@ -1301,8 +1571,10 @@ def parse_args() -> argparse.Namespace:
     bank.add_argument("--max-bg-global-tokens", type=int, default=60000)
     bank.add_argument("--body-intensity-threshold", type=float, default=5.0)
     bank.add_argument("--shape-radius", type=int, default=2)
-    bank.add_argument("--ring-weight", type=float, default=0.5)
-    bank.add_argument("--ring-mode", choices=["suppress", "boost"], default="suppress")
+    bank.add_argument("--raw-root", type=Path, default=None)
+    bank.add_argument("--lidc-source-manifest", type=Path, default=None)
+    bank.add_argument("--mask-overlap-threshold", type=float, default=0.0)
+    bank.add_argument("--allow-grid-mask-fallback", action="store_true")
     bank.add_argument("--kmeans-iters", type=int, default=50)
     bank.add_argument("--seed", type=int, default=42)
     bank.add_argument("--limit", type=int, default=0)
@@ -1327,6 +1599,9 @@ def parse_args() -> argparse.Namespace:
     eval_parent.add_argument("--gap-score-weight", type=float, default=0.0)
     eval_parent.add_argument("--retrieval-topm", type=int, default=64)
     eval_parent.add_argument("--retrieval-temperature", type=float, default=0.1)
+    eval_parent.add_argument("--prototype-topm", type=int, default=1)
+    eval_parent.add_argument("--counterfactual-temperature", type=float, default=1.0)
+    eval_parent.add_argument("--amplifier-threshold", type=float, default=0.0)
     eval_parent.add_argument("--prototype-query-chunk", type=int, default=512)
     eval_parent.add_argument("--bg-bank-chunk", type=int, default=1024)
     eval_parent.add_argument("--similarity-chunk", type=int, default=4096)
@@ -1342,7 +1617,8 @@ def parse_args() -> argparse.Namespace:
 
     report = sub.add_parser("eval-report", parents=[common_model, eval_parent])
     report.add_argument("--prompt-mode", choices=["benchmark_raw", "micro_focus_v3"], default="benchmark_raw")
-    report.add_argument("--topk-steps", type=int, default=3)
+    report.add_argument("--probe-steps", "--topk-steps", dest="probe_steps", type=int, default=3)
+    report.add_argument("--probe-vocab-topk", type=int, default=50)
     report.set_defaults(max_new_tokens=160)
     return parser.parse_args()
 

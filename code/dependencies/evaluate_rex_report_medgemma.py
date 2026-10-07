@@ -10,26 +10,14 @@ import torch
 from PIL import Image
 from transformers import AutoImageProcessor, AutoProcessor, Gemma3ForConditionalGeneration
 
-from evaluate_medgemma_microbench_bank_selector_visibility import (
-    build_reference_tokens,
-    move_inputs,
-    select_support,
-)
+from evaluate_medgemma_microbench_bank_selector_visibility import move_inputs
+from easylens_core import EasyLensConfig, compute_easylens, load_easylens_bank
 from evaluate_rex_report_micro_perception import (
     evaluate_pair,
     load_manifest as load_report_manifest,
     summarize,
     write_json,
     write_jsonl,
-)
-from evaluate_rex_shape_selector_hitmap import (
-    build_cluster_member_lists,
-    build_shape_heatmap,
-    build_support_score,
-    compute_patch_score,
-    compute_position_background_maxsim,
-    load_shape_bank,
-    route_to_cluster_members,
 )
 from prototype_guided_fundus import extract_layer_tokens, patched_vision_layer_tokens
 
@@ -40,6 +28,7 @@ class ReportRecord:
     image_rel: str
     image_path: Path
     prompt: str
+    target_description: str
 
 
 def ensure_dir(path: Path) -> None:
@@ -107,12 +96,20 @@ def load_report_records(benchmark_dir: Path, prompt_mode: str, limit: int | None
     data = json.loads((benchmark_dir / 'vqa_report_llava.json').read_text(encoding='utf-8'))
     rows: list[ReportRecord] = []
     for item in data:
+        conversations = item['conversations']
+        target_description = str(item.get('target_description') or '')
+        if not target_description and len(conversations) > 1:
+            target_description = str(conversations[1].get('value') or '')
+        marker = 'Target finding:'
+        if marker in target_description:
+            target_description = target_description.split(marker, 1)[1].splitlines()[0].strip()
         rows.append(
             ReportRecord(
                 sample_id=str(item['id']),
                 image_rel=str(item['image']),
                 image_path=benchmark_dir / str(item['image']),
-                prompt=strengthen_report_prompt(str(item['conversations'][0]['value']), prompt_mode),
+                prompt=strengthen_report_prompt(str(conversations[0]['value']), prompt_mode),
+                target_description=target_description,
             )
         )
     if limit is not None:
@@ -131,22 +128,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument('--vision-layer', type=int, default=1)
     parser.add_argument('--beta', type=float, default=0.75)
     parser.add_argument('--selector-k', type=int, default=256)
-    parser.add_argument('--support-mode', choices=['global_topk', 'radius_suppressed_topk'], default='global_topk')
-    parser.add_argument('--suppression-radius', type=int, default=1)
-    parser.add_argument('--margin-weight', type=float, default=0.35)
     parser.add_argument('--shape-weight', type=float, default=1.0)
-    parser.add_argument('--score-threshold', type=float, default=0.0)
-    parser.add_argument('--seed-mode', choices=['all_positive', 'local_peak', 'local_peak_topk'], default='local_peak_topk')
-    parser.add_argument('--seed-peak-kernel', type=int, default=5)
     parser.add_argument('--seed-topk', type=int, default=16)
-    parser.add_argument('--base-score-mode', choices=['all_score', 'seed_only'], default='seed_only')
-    parser.add_argument('--support-score-mode', choices=['shape_only', 'hybrid_max', 'hybrid_sum'], default='shape_only')
-    parser.add_argument('--raw-score-weight', type=float, default=1.0)
-    parser.add_argument('--gap-score-weight', type=float, default=0.0)
-    parser.add_argument('--retrieval-topm', type=int, default=64)
-    parser.add_argument('--retrieval-temperature', type=float, default=0.1)
-    parser.add_argument('--prototype-query-chunk', type=int, default=512)
-    parser.add_argument('--bg-bank-chunk', type=int, default=1024)
+    parser.add_argument('--prototype-topm', type=int, default=1)
+    parser.add_argument('--counterfactual-temperature', type=float, default=1.0)
+    parser.add_argument('--amplifier-threshold', type=float, default=0.0)
     parser.add_argument('--similarity-chunk', type=int, default=4096)
     parser.add_argument('--limit', type=int, default=0)
     parser.add_argument('--max-new-tokens', type=int, default=160)
@@ -195,79 +181,31 @@ def generate_baseline(model, processor, image: Image.Image, prompt_text: str, ma
     return processor.decode(generated[0][input_len:], skip_special_tokens=True).strip()
 
 
-def generate_shape_method(args: argparse.Namespace, model, image_processor, processor, image: Image.Image, prompt_text: str, bank: dict, cluster_members: list[list[int]]) -> tuple[str, dict]:
+def generate_shape_method(args: argparse.Namespace, model, image_processor, processor, image: Image.Image, prompt_text: str, bank: dict) -> tuple[str, dict]:
     pixel_inputs = image_processor(images=image, return_tensors='pt')
     pixel_values = pixel_inputs['pixel_values'].to(device=model.device, dtype=(torch.bfloat16 if str(model.device).startswith('cuda') else torch.float32))
     source_tokens = extract_layer_tokens(model, pixel_values, int(args.vision_layer))
-    token_norm = torch.nn.functional.normalize(source_tokens.float(), dim=-1)
-    lesion_sim, best_member_idx, proto_margin = route_to_cluster_members(
-        token_norm,
-        bank,
-        cluster_members,
-        query_chunk=int(args.prototype_query_chunk),
-    )
-    background_sim = compute_position_background_maxsim(token_norm, bank, chunk_size=int(args.bg_bank_chunk))
-    score, score_parts = compute_patch_score(lesion_sim, background_sim, proto_margin, margin_weight=float(args.margin_weight))
-    heatmap = build_shape_heatmap(
-        score,
-        lesion_sim,
-        best_member_idx,
-        bank,
-        shape_weight=float(args.shape_weight),
-        score_threshold=float(args.score_threshold),
-        seed_mode=args.seed_mode,
-        seed_peak_kernel=int(args.seed_peak_kernel),
+    config = EasyLensConfig(
+        selector_k=int(args.selector_k),
         seed_topk=int(args.seed_topk),
-        base_score_mode=args.base_score_mode,
-    )
-    support_score = build_support_score(
-        score,
-        heatmap,
-        lesion_sim,
-        background_sim,
-        mode=args.support_score_mode,
-        raw_score_weight=float(args.raw_score_weight),
-        gap_score_weight=float(args.gap_score_weight),
-    )
-    alpha = select_support(
-        support_score,
-        support_mode=args.support_mode,
-        k=int(args.selector_k),
-        suppression_radius=int(args.suppression_radius),
-    ).to(device=model.device)
-    reference_tokens = build_reference_tokens(
-        source_tokens=source_tokens,
-        alpha=alpha,
-        lesion_bank_raw=bank['lesion_bank'],
-        lesion_bank_norm=bank['lesion_bank_norm'],
-        lesion_delta_raw=None,
-        topm=int(args.retrieval_topm),
-        temperature=float(args.retrieval_temperature),
+        prototype_topm=int(args.prototype_topm),
+        counterfactual_temperature=float(args.counterfactual_temperature),
+        morphology_weight=float(args.shape_weight),
+        amplifier_threshold=float(args.amplifier_threshold),
         similarity_chunk=int(args.similarity_chunk),
-        retrieval_mode='reference_bank',
     )
+    reference_tokens, alpha, meta = compute_easylens(source_tokens, bank, config)
     messages = [{'role': 'user', 'content': [{'type': 'image', 'image': image}, {'type': 'text', 'text': prompt_text}]}]
     prompt = processor.apply_chat_template(messages, add_generation_prompt=True, tokenize=False)
     inputs = processor(images=image, text=prompt, return_tensors='pt')
     inputs = move_inputs(inputs, model.device)
-    with patched_vision_layer_tokens(model, int(args.vision_layer), alpha, float(args.beta), 'token_delta', reference_tokens):
+    with patched_vision_layer_tokens(model, int(args.vision_layer), alpha, float(args.beta), 'paper_residual', reference_tokens):
         gen_kwargs = build_generate_kwargs(args.max_new_tokens, args.do_sample, args.temperature, args.top_p)
         with torch.no_grad():
             generated = model.generate(**inputs, **gen_kwargs)
     input_len = inputs['input_ids'].shape[1]
     text = processor.decode(generated[0][input_len:], skip_special_tokens=True).strip()
-    meta = {
-        'selected_patch_count': int((alpha > 0).sum().item()),
-        'selected_patch_indices': [int(x) for x in torch.nonzero(alpha > 0, as_tuple=False).view(-1).tolist()],
-        'score_max': float(score.max().item()),
-        'score_mean': float(score.mean().item()),
-        'heatmap_max': float(heatmap.max().item()),
-        'heatmap_mean': float(heatmap.mean().item()),
-        'support_score_max': float(support_score.max().item()),
-        'support_score_mean': float(support_score.mean().item()),
-    }
-    del pixel_inputs, pixel_values, source_tokens, token_norm, lesion_sim, best_member_idx, proto_margin
-    del background_sim, score, score_parts, heatmap, support_score, alpha, reference_tokens, messages, prompt, inputs, generated
+    del pixel_inputs, pixel_values, source_tokens, alpha, reference_tokens, messages, prompt, inputs, generated
     return text, meta
 
 
@@ -279,12 +217,10 @@ def run_eval(args: argparse.Namespace) -> None:
 
     device, image_processor, processor, model = load_model(args)
     bank = None
-    cluster_members = None
     if args.mode == 'shape':
         if args.bank_path is None:
             raise ValueError('--bank-path is required when --mode shape')
-        bank = load_shape_bank(args.bank_path, torch.device(model.device))
-        cluster_members = build_cluster_member_lists(bank)
+        bank = load_easylens_bank(args.bank_path, torch.device(model.device))
 
     run_config = {
         'mode': args.mode,
@@ -295,9 +231,15 @@ def run_eval(args: argparse.Namespace) -> None:
         'beta': float(args.beta),
         'selector_k': int(args.selector_k),
         'seed_topk': int(args.seed_topk),
-        'support_mode': args.support_mode,
-        'seed_mode': args.seed_mode,
-        'support_score_mode': args.support_score_mode,
+        'shape_weight': float(args.shape_weight),
+        'prototype_topm': int(args.prototype_topm),
+        'counterfactual_temperature': float(args.counterfactual_temperature),
+        'amplifier_threshold': float(args.amplifier_threshold),
+        'method_profile': 'paper_equations_27_40' if args.mode == 'shape' else None,
+        'seed_selection': 'global_topk' if args.mode == 'shape' else None,
+        'candidate_selection': 'global_topk_calibrated_score' if args.mode == 'shape' else None,
+        'reference_retrieval': 'cluster_nearest_neighbor' if args.mode == 'shape' else None,
+        'residual_update': 'z_plus_alpha_w_reference_delta' if args.mode == 'shape' else None,
         'max_new_tokens': int(args.max_new_tokens),
         'device': device,
         'prompt_mode': args.prompt_mode,
@@ -305,6 +247,8 @@ def run_eval(args: argparse.Namespace) -> None:
         'temperature': None,
         'top_p': None,
         'total_records': len(records),
+        'bank_alignment': bank['alignment'] if bank is not None else None,
+        'bank_schema_version': int(bank['schema_version']) if bank is not None else None,
     }
     write_json(args.output_dir / 'run_config.json', run_config)
 
@@ -316,7 +260,7 @@ def run_eval(args: argparse.Namespace) -> None:
             raw_text = generate_baseline(model, processor, image, rec.prompt, int(args.max_new_tokens), args.do_sample, args.temperature, args.top_p)
             meta = {}
         else:
-            raw_text, meta = generate_shape_method(args, model, image_processor, processor, image, rec.prompt, bank, cluster_members)
+            raw_text, meta = generate_shape_method(args, model, image_processor, processor, image, rec.prompt, bank)
         pred_rows.append({
             'sample_id': rec.sample_id,
             'image': rec.image_rel,

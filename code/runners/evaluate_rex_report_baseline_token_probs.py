@@ -177,9 +177,6 @@ def analyze_scores(
 ) -> dict:
     _text, gen_ids, gen_tokens = decode_tokens(tokenizer, generated_ids)
     scores = list(getattr(outputs, "scores", []) or [])
-    # Some backends can return next-token scores even when the decoded output is
-    # empty because prompt slicing failed or generation stopped immediately. An
-    # empty report should not receive lesion-token probability credit.
     if not scores or not gen_ids:
         return {
             "generated_token_count": len(gen_ids),

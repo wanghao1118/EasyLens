@@ -2,48 +2,48 @@
 
 This file records the effective EasyLens evaluation settings used by the packaged runners.
 
-## Common VQA Settings
+## Paper-Equation Method Profile
+
+The packaged runners use `paper_equations_27_40`, an equation-literal interpretation of Appendix A.3-A.4. This label does not claim that a locally rebuilt bank or rerun reproduces the paper's tables. Where the equations and Table 4 differ, this profile follows the equations: it omits the Table 4 margin term and local-peak filter and retrieves one nearest support rather than a temperature-weighted support set.
 
 - `vision_layer`: 1
-- `support_mode`: `global_topk`
-- `suppression_radius`: 1
-- `margin_weight`: 0.35
-- `shape_weight`: 1.0
-- `score_threshold`: 0.0
-- `seed_mode`: `local_peak_topk`
-- `seed_peak_kernel`: 5
-- `base_score_mode`: `seed_only`
-- `support_score_mode`: `shape_only` unless a task-specific setting below overrides it.
-- `raw_score_weight`: 1.0
-- `gap_score_weight`: 0.0
-- `retrieval_temperature`: 0.1
+- `prototype_topm` (M in Eqs. 27-28): 1
+- `counterfactual_temperature` (tau_c in Eq. 29): 1.0
+- `shape_weight` (lambda in Eq. 32): 1.0
+- Seed selection: global top-K0 from Eq. 30.
+- Candidate selection: global top-K over the calibrated score from Eq. 33.
+- Reference retrieval: one nearest support within the recalled prototype memory, as required by Eqs. 34 and 38.
+- `amplifier_threshold` (eta in Eqs. 39-40): 0.0
 - `max_new_tokens`: 96 for count/single-select, 160 for report generation.
+- Report probe: first 3 decoding steps with vocabulary top-50 intersection. The paper defines top-K but does not state a numeric K; 50 is the explicit release default.
+
+The margin term, local-peak seed filter, support suppression, hybrid/raw/gap score modes, and temperature-weighted top-m support averaging from the earlier experiment scripts are not part of this profile and are not accepted by the official MedGemma runners.
 
 ## 9 Subtle-Lesion Benchmarks
 
 All compared settings use the prompt text stored in the benchmark files. The LIDC count prompt includes an integer-only response instruction as part of the benchmark question text.
 
-The EasyLens shape banks are built from an independent bank/train split with the same task-level directory convention, not from the held-out test benchmark directories. The packaged benchmark files are used for evaluation only.
+Schema-v2 EasyBank files are built from an independent bank/train split with pixel-level lesion masks, not from the held-out test benchmark directories. One bank is built per dataset and reused for its Stat., Sel., and Gen. tasks. The packaged benchmark metadata is used for evaluation only.
 
-| Benchmark | Task | beta | selector_k | seed_topk | retrieval_topm | support_score_mode |
-|---|---|---:|---:|---:|---:|---|
-| rex_count | count | 1.25 | 384 | 32 | 128 | shape_only |
-| rex_single_select | single_select | 0.75 | 256 | 16 | 64 | shape_only |
-| rex_report | report | 0.50 | 256 | 16 | 64 | shape_only |
-| lidc_count | count | 0.75 | 256 | 16 | 64 | shape_only |
-| lidc_single_select | single_select | 0.75 | 256 | 16 | 64 | shape_only |
-| lidc_report | report | 0.50 | 256 | 16 | 64 | shape_only |
-| abdomen_count | count | 0.75 | 256 | 32 | 64 | shape_only |
-| abdomen_single_select | single_select | 0.75 | 256 | 16 | 64 | shape_only |
-| abdomen_report | report | 0.50 | 256 | 16 | 64 | shape_only |
+| Benchmark | Task | beta (alpha) | selector_k (K) | seed_topk (K0) |
+|---|---|---:|---:|---:|
+| rex_count | count | 1.25 | 384 | 32 |
+| rex_single_select | single_select | 0.75 | 256 | 16 |
+| rex_report | report | 0.50 | 256 | 16 |
+| lidc_count | count | 0.75 | 256 | 16 |
+| lidc_single_select | single_select | 0.75 | 256 | 16 |
+| lidc_report | report | 0.50 | 256 | 16 |
+| abdomen_count | count | 0.75 | 256 | 32 |
+| abdomen_single_select | single_select | 0.75 | 256 | 16 |
+| abdomen_report | report | 0.50 | 256 | 16 |
 
 ## Normal-Lesion RRG Benchmarks
 
-| Dataset | beta | selector_k | seed_topk | support_score_mode | Selection metric |
-|---|---:|---:|---:|---|---|
-| MIMIC-CXR | 0.50 | 256 | 16 | shape_only | METEOR |
-| Kvasir-SEG | 1.00 | 384 | 32 | shape_only | METEOR |
-| BKAI-Polyp | 2.00 | 512 | 48 | shape_only | METEOR |
+| Dataset | beta (alpha) | selector_k (K) | seed_topk (K0) | Selection metric |
+|---|---:|---:|---:|---|
+| MIMIC-CXR | 0.50 | 256 | 16 | METEOR |
+| Kvasir-SEG | 1.00 | 384 | 32 | METEOR |
+| BKAI-Polyp | 2.00 | 512 | 48 | METEOR |
 
 ## Runner Entry Points
 

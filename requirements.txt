@@ -1,0 +1,6 @@
+numpy>=1.26,<3
+Pillow>=10,<13
+torch>=2.1
+transformers>=4.51,<5
+accelerate>=1.0
+nibabel>=5.2,<6

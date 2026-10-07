@@ -160,9 +160,53 @@ def resolve_tasks(benchmark_dir: Path, requested_tasks: list[str] | None) -> lis
 
 
 def load_manifest(benchmark_dir: Path) -> dict[str, dict[str, str]]:
-    with (benchmark_dir / "manifest.csv").open("r", encoding="utf-8", newline="") as f:
-        rows = list(csv.DictReader(f))
-    return {str(row["sample_id"]): row for row in rows}
+    """Load scoring labels from a private manifest or the public benchmark.
+
+    Historical experiment directories use ``manifest.csv``. The public release
+    intentionally omits that source-data manifest, so its immutable
+    ``benchmark.jsonl`` is converted to the small scoring schema used below.
+    Single-select option letters are resolved against the prompt's coordinate
+    map rather than treated as grid labels.
+    """
+
+    manifest_path = benchmark_dir / "manifest.csv"
+    if manifest_path.is_file():
+        with manifest_path.open("r", encoding="utf-8", newline="") as f:
+            rows = list(csv.DictReader(f))
+        return {str(row["sample_id"]): row for row in rows}
+
+    benchmark_path = benchmark_dir / "benchmark.jsonl"
+    if not benchmark_path.is_file():
+        raise FileNotFoundError(f"Neither manifest.csv nor benchmark.jsonl exists in {benchmark_dir}")
+
+    converted: dict[str, dict[str, str]] = {}
+    for item in read_jsonl(benchmark_path):
+        sample_id = str(item["id"])
+        task_text = str(item.get("task") or "").lower()
+        prompt = str(item.get("prompt") or "")
+        answer = str(item.get("answer") or "").strip()
+        row = {
+            "sample_id": sample_id,
+            "grid_size": "3",
+            "_gold_source": "benchmark.jsonl",
+        }
+        if "count" in task_text:
+            row.update({"task": "count", "gold_count": answer})
+        elif "multiselect" in task_text or "single-select" in task_text:
+            option_map = parse_prompt_option_map(prompt, grid_size=3)
+            gold_cell = option_map.get(answer.upper())
+            if not gold_cell:
+                raise ValueError(f"{benchmark_path}: cannot resolve gold option for {sample_id}")
+            row.update(
+                {
+                    "task": "multiselect",
+                    "all_grid_cells_json": json.dumps([gold_cell]),
+                }
+            )
+        else:
+            row["task"] = task_text
+        converted[sample_id] = row
+    return converted
 
 
 def parse_bool(value: str | bool | None) -> bool | None:
@@ -370,6 +414,16 @@ def parse_count_answer(text: str) -> int | None:
     return matches[-1][1]
 
 
+def parse_strict_count_answer(text: str, min_value: int = 0, max_value: int = 6) -> int | None:
+    """Accept only a single in-range integer, as required by the benchmark."""
+
+    cleaned = (text or "").strip().strip("`'\" \t\r\n")
+    if not re.fullmatch(r"[+-]?\d+", cleaned):
+        return None
+    value = int(cleaned)
+    return value if min_value <= value <= max_value else None
+
+
 def truth_grid_cells(row: dict[str, str]) -> list[str]:
     raw = row.get("all_grid_cells_json", "")
     if raw:
@@ -537,7 +591,10 @@ def score_predictions(
             if gold_label in {"yes", "no"}:
                 base["gold_label"] = gold_label
         elif task == "count":
-            base["parsed_count"] = parse_count_answer(answer_text)
+            if mrow.get("_gold_source") == "benchmark.jsonl":
+                base["parsed_count"] = parse_strict_count_answer(answer_text)
+            else:
+                base["parsed_count"] = parse_count_answer(answer_text)
             gold_count = mrow.get("gold_count")
             if gold_count not in {None, ""}:
                 base["gold_count"] = int(float(gold_count))
@@ -552,6 +609,11 @@ def score_predictions(
         "benchmark_dir": str(benchmark_dir),
         "task": task,
         "predictions_path": str(predictions_path),
+        "gold_source": (
+            "benchmark.jsonl"
+            if any(row.get("_gold_source") == "benchmark.jsonl" for row in manifest.values())
+            else "manifest.csv"
+        ),
         "metrics": {},
     }
     for name, rows in groups.items():

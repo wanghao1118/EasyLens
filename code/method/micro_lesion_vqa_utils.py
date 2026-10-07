@@ -451,7 +451,6 @@ def save_vqa_variants(
     elif yesno_path.exists():
         yesno_path.unlink()
     save_llava_records(loc_records, output_dir / "vqa_loc_llava.json")
-    # Backward compatibility: the single-file export now tracks the loc-only benchmark.
     save_llava_records(loc_records, output_dir / "vqa_llava.json")
 
 

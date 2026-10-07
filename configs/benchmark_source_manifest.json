@@ -1,0 +1,8 @@
+{
+  "source_bundle": "easylens_release_with_banks_images_20260511",
+  "source_transfer_completed": "2026-05-12",
+  "public_release_scope": "Benchmark JSON/JSONL metadata, answer exports, sample-id CSV/TXT files, and benchmark_counts.json only. Medical images and EasyBank tensors from the source bundle are excluded.",
+  "digest_algorithm": "sha256(sorted release_relative_path + NUL + sha256(file) + LF)",
+  "file_count": 46,
+  "aggregate_sha256": "e4beb37919854da19ec54a53daee2113ddd4ebb46c710d596287b5f8146b9d65"
+}

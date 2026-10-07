@@ -1,7 +1,21 @@
 {
-  "package_created": "2026-05-10",
-  "dataset_policy": "Benchmark text metadata, sample_id lists, and subtle-lesion EasyLens shape banks are included. Image files, masks, checkpoints, logs, generated outputs, and raw medical data are intentionally excluded.",
-  "bank_policy": "Shape banks are built from an independent bank/train split supplied through BANK_SOURCE_ROOT. Held-out benchmark directories are used for evaluation only.",
+  "package_updated": "2026-09-30",
+  "method_profile": "paper_equations_27_40",
+  "dataset_policy": "All nine benchmark definitions, prompts, answer labels, and sample_id lists are included. Source images, masks, raw reports, and raw medical data are intentionally excluded and must be obtained under their original terms.",
+  "weight_policy": "The public package contains no model checkpoints, adapter weights, selector checkpoints, or EasyBank tensors. Weight-like files are blocked by .gitignore and code/tools/validate_release_package.py.",
+  "bank_policy": "Construction samples and schema-v2 EasyBank tensors are not published. Users who build local banks must supply an authorized construction split that is disjoint from evaluation through BANK_SOURCE_ROOT. Legacy artifact hashes are retained for audit traceability only.",
+  "benchmark_provenance": {
+    "source_bundle": "easylens_release_with_banks_images_20260511",
+    "manifest": "configs/benchmark_source_manifest.json",
+    "policy": "Benchmark metadata and sample lists are copied byte-for-byte from the source bundle. Source medical images and EasyBank tensors are excluded from the public release."
+  },
+  "reproducibility_scope": {
+    "benchmark_counts": "Verified against arXiv v3 Figure 5.",
+    "benchmark_payload": "Pinned to the May 2026 Google Drive evaluation bundle by aggregate SHA-256.",
+    "method_code": "Equation-literal Appendix A.3-A.4 implementation; not claimed to be the historical Table 1 execution artifact.",
+    "report_probe_topk": "The release default is 50; arXiv v3 defines top-K without publishing a numeric K.",
+    "construction_data": "Not redistributed. Any local construction split must be disjoint from evaluation."
+  },
   "benchmarks": [
     {
       "name": "rex_count",
@@ -84,10 +98,12 @@
     "backbone_adaptation": "code/runners/evaluate_rex_easylens_model_native.py",
     "report_token_probability": "code/runners/analyze_rex_report_lesion_token_probs.py",
     "normal_rrg_shape_pipeline": "code/runners/evaluate_rex_easylens_model_native.py",
-    "bank_builder": "code/method/build_rex_shape_selector_bank.py"
+    "bank_builder": "code/runners/evaluate_rex_easylens_model_native.py build-bank",
+    "release_validator": "code/tools/validate_release_package.py",
+    "release_builder": "code/tools/build_release_package.sh"
   },
   "feature_banks": {
-    "subtle_lesion_medgemma15": "banks/subtle_lesion_medgemma15/MANIFEST.json"
+    "legacy_subtle_lesion_medgemma15_checksums": "banks/subtle_lesion_medgemma15/MANIFEST.json"
   },
   "launch_scripts": {
     "build_subtle_lesion_banks_medgemma15": "code/launch_scripts/build_subtle_lesion_banks_medgemma15.sh",

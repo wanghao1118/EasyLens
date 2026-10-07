@@ -1,17 +1,17 @@
 {
   "bank_set": "subtle_lesion_medgemma15",
-  "policy": "These banks are copied from the original independent bank/train-split construction outputs used by the audited runs. Held-out benchmark directories are used only for evaluation.",
+  "policy": "Checksums document legacy schema-v1 artifacts used by the original runs. They are not redistributed. Locally rebuilt schema-v2 banks implement the equation-literal method profile and must use an authorized construction split disjoint from evaluation.",
   "files": [
     {
       "file": "rex_count_select_shape_bank.pt",
-      "source_path": "/home/qiwei/vlm/evals/rex_abdomen_allcount_baseline_method_20260418/rex/rex_shape_bank.pt",
+      "schema_version": 1,
       "size_bytes": 991449239,
       "sha256": "8bc377b584aeee04446ac4ef00dcc8e08055d30adc68ab1213b9cece60180a75",
       "used_by": ["rex_count", "rex_single_select"]
     },
     {
       "file": "rex_report_shape_bank.pt",
-      "source_path": "/home/qiwei/vlm/evals/three_bench_shape_selector_fulltasks_sweep_20260418/rex/rex_shape_bank.pt",
+      "schema_version": 1,
       "size_bytes": 991449239,
       "sha256": "8bc377b584aeee04446ac4ef00dcc8e08055d30adc68ab1213b9cece60180a75",
       "used_by": ["rex_report"],
@@ -19,35 +19,35 @@
     },
     {
       "file": "lidc_count_report_shape_bank.pt",
-      "source_path": "/home/qiwei/vlm/evals/three_bench_shape_selector_fulltasks_sweep_20260418/lidc/lidc_shape_bank.pt",
+      "schema_version": 1,
       "size_bytes": 1044124253,
       "sha256": "04417559b0770e7f8d29fd1f8d4534c208f70d0b095b6aecf0476454f0e98908",
       "used_by": ["lidc_count", "lidc_report"]
     },
     {
       "file": "lidc_single_select_shape_bank.pt",
-      "source_path": "/home/qiwei/vlm/evals/lidc_singleselect_balanced_baseline_method_20260418/lidc_shape_bank.pt",
+      "schema_version": 1,
       "size_bytes": 1039513437,
       "sha256": "11e2bea9bda2924a715a106e9ed76c86d15c4ee69c4d33e00221fe60bd6f2a17",
       "used_by": ["lidc_single_select"]
     },
     {
       "file": "abdomen_count_shape_bank.pt",
-      "source_path": "/home/qiwei/vlm/evals/abdomen_count_distribution_uniform_split_v4_clean2_fullrerun_20260425/abdomen_shape_bank.pt",
+      "schema_version": 1,
       "size_bytes": 780646255,
       "sha256": "9f5bf54622f2cf3e610dfd81180d6b2d8baa9d091a1d40396664ea95c58d521e",
       "used_by": ["abdomen_count"]
     },
     {
       "file": "abdomen_single_select_shape_bank.pt",
-      "source_path": "/home/qiwei/vlm/evals/abdomen_allcount_coord_baseline_method_20260418/abdomen_shape_bank.pt",
+      "schema_version": 1,
       "size_bytes": 681894127,
       "sha256": "1e1bc6863bbafbcee757782a3a7449434be182f912856b457af30b184a1980c0",
       "used_by": ["abdomen_single_select"]
     },
     {
       "file": "abdomen_report_shape_bank.pt",
-      "source_path": "/home/qiwei/vlm/evals/three_bench_shape_selector_fulltasks_sweep_20260418/abdomen/abdomen_shape_bank.pt",
+      "schema_version": 1,
       "size_bytes": 681894127,
       "sha256": "1e1bc6863bbafbcee757782a3a7449434be182f912856b457af30b184a1980c0",
       "used_by": ["abdomen_report"],

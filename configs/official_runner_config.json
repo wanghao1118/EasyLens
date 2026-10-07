@@ -1,4 +1,5 @@
 {
+  "method_profile": "paper_equations_27_40",
   "runtime": {
     "pythonpath": [
       "code/runners",
@@ -11,17 +12,10 @@
   },
   "common_easylens_parameters": {
     "vision_layer": 1,
-    "support_mode": "global_topk",
-    "suppression_radius": 1,
-    "margin_weight": 0.35,
     "shape_weight": 1.0,
-    "score_threshold": 0.0,
-    "seed_mode": "local_peak_topk",
-    "seed_peak_kernel": 5,
-    "base_score_mode": "seed_only",
-    "raw_score_weight": 1.0,
-    "gap_score_weight": 0.0,
-    "retrieval_temperature": 0.1
+    "prototype_topm": 1,
+    "counterfactual_temperature": 1.0,
+    "amplifier_threshold": 0.0
   },
   "subtle_lesion_medgemma15": {
     "model_kind": "medgemma1.5",
@@ -33,101 +27,86 @@
       "rex_count": {
         "task": "count",
         "benchmark_dir": "benchmarks/rex_count",
-        "bank_file": "rex_count_select_shape_bank.pt",
+        "bank_file": "rex_shape_bank_v2.pt",
         "beta": 1.25,
         "selector_k": 384,
         "seed_topk": 32,
-        "retrieval_topm": 128,
-        "support_score_mode": "shape_only",
         "strict_count_prompt": false
       },
       "rex_single_select": {
         "task": "multiselect",
         "benchmark_dir": "benchmarks/rex_single_select",
-        "bank_file": "rex_count_select_shape_bank.pt",
+        "bank_file": "rex_shape_bank_v2.pt",
         "beta": 0.75,
         "selector_k": 256,
-        "seed_topk": 16,
-        "retrieval_topm": 64,
-        "support_score_mode": "shape_only"
+        "seed_topk": 16
       },
       "rex_report": {
         "task": "report",
         "benchmark_dir": "benchmarks/rex_report",
-        "bank_file": "rex_report_shape_bank.pt",
+        "bank_file": "rex_shape_bank_v2.pt",
         "beta": 0.5,
         "selector_k": 256,
         "seed_topk": 16,
-        "retrieval_topm": 64,
-        "support_score_mode": "shape_only",
         "prompt_mode": "benchmark_raw",
-        "topk_steps": 3
+        "topk_steps": 3,
+        "probe_vocab_topk": 50
       },
       "lidc_count": {
         "task": "count",
         "benchmark_dir": "benchmarks/lidc_count",
-        "bank_file": "lidc_count_report_shape_bank.pt",
+        "bank_file": "lidc_shape_bank_v2.pt",
         "beta": 0.75,
         "selector_k": 256,
         "seed_topk": 16,
-        "retrieval_topm": 64,
-        "support_score_mode": "shape_only",
         "strict_count_prompt": false
       },
       "lidc_single_select": {
         "task": "multiselect",
         "benchmark_dir": "benchmarks/lidc_single_select",
-        "bank_file": "lidc_single_select_shape_bank.pt",
+        "bank_file": "lidc_shape_bank_v2.pt",
         "beta": 0.75,
         "selector_k": 256,
-        "seed_topk": 16,
-        "retrieval_topm": 64,
-        "support_score_mode": "shape_only"
+        "seed_topk": 16
       },
       "lidc_report": {
         "task": "report",
         "benchmark_dir": "benchmarks/lidc_report",
-        "bank_file": "lidc_count_report_shape_bank.pt",
+        "bank_file": "lidc_shape_bank_v2.pt",
         "beta": 0.5,
         "selector_k": 256,
         "seed_topk": 16,
-        "retrieval_topm": 64,
-        "support_score_mode": "shape_only",
         "prompt_mode": "benchmark_raw",
-        "topk_steps": 3
+        "topk_steps": 3,
+        "probe_vocab_topk": 50
       },
       "abdomen_count": {
         "task": "count",
         "benchmark_dir": "benchmarks/abdomen_count",
-        "bank_file": "abdomen_count_shape_bank.pt",
+        "bank_file": "abdomen_shape_bank_v2.pt",
         "beta": 0.75,
         "selector_k": 256,
         "seed_topk": 32,
-        "retrieval_topm": 64,
-        "support_score_mode": "shape_only",
         "strict_count_prompt": false
       },
       "abdomen_single_select": {
         "task": "multiselect",
         "benchmark_dir": "benchmarks/abdomen_single_select",
-        "bank_file": "abdomen_single_select_shape_bank.pt",
+        "bank_file": "abdomen_shape_bank_v2.pt",
         "beta": 0.75,
         "selector_k": 256,
-        "seed_topk": 16,
-        "retrieval_topm": 64,
-        "support_score_mode": "shape_only"
+        "seed_topk": 16
       },
       "abdomen_report": {
         "task": "report",
         "benchmark_dir": "benchmarks/abdomen_report",
-        "bank_file": "abdomen_report_shape_bank.pt",
+        "bank_file": "abdomen_shape_bank_v2.pt",
         "beta": 0.5,
         "selector_k": 256,
         "seed_topk": 16,
-        "retrieval_topm": 64,
-        "support_score_mode": "shape_only",
         "prompt_mode": "benchmark_raw",
-        "topk_steps": 3
+        "topk_steps": 3,
+        "probe_vocab_topk": 50
       }
     }
   },
@@ -141,13 +120,14 @@
       "max_bg_per_image": 512,
       "max_lesion_tokens": 30000,
       "max_bg_global_tokens": 60000,
-      "body_intensity_threshold": 5.0
+      "body_intensity_threshold": 5.0,
+      "num_normal_prototypes": 8
     },
     "report_eval": {
       "prompt_mode": "benchmark_raw",
       "topk_steps": 3,
-      "max_new_tokens": 160,
-      "support_score_mode": "shape_only"
+      "probe_vocab_topk": 50,
+      "max_new_tokens": 160
     },
     "datasets": {
       "mimic_cxr": {
